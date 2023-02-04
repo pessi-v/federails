@@ -1,0 +1,131 @@
+---
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - bin/*
+    - coverage/**/*
+    - spec/dummy/bin/*
+    - spec/dummy/db/schema.rb
+    - vendor/**/*
+  TargetRubyVersion: 2.7.4
+  NewCops: enable
+
+RSpec:
+  Language:
+    ExampleGroups:
+      Regular:
+        - on_patch
+        - on_get
+        - on_put
+        - on_post
+        - on_delete
+    Examples:
+      Regular:
+        - for_code
+    Expectations:
+      - test_response_of
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+Layout/LineLength:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Exclude:
+    - spec/controllers/*.rb
+
+Metrics/AbcSize:
+  Max: 16.5
+  Exclude:
+    - spec/dummy/db/migrate/*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/dummy/db/migrate/*.rb
+    - config/routes.rb
+    - lib/tasks/*.rake
+    - spec/**/*_spec.rb
+    - spec/factories/*.rb
+    - spec/support/shared_examples/**/*.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - spec/dummy/db/migrate/*.rb
+
+Metrics/MethodLength:
+  Max: 12
+  Exclude:
+    - spec/dummy/db/migrate/*.rb
+
+Rails/DynamicFindBy:
+  AllowedMethods:
+    # In Actor model
+    - find_by_account
+    - find_by_federation_url
+
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/tasks/*_spec.rb
+
+RSpec/ExampleLength:
+  Exclude:
+    - spec/migrations/*_spec.rb
+
+RSpec/FactoryBot/ConsistentParenthesesStyle:
+  EnforcedStyle: omit_parentheses
+
+# I prefer to type the whole calls instead of having the methods included in the
+# tests
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/migrations/*_spec.rb
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - spec/migrations/*_spec.rb
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/Rails/InferredSpecType:
+  Enabled: false
+
+RSpec/RepeatedDescription:
+  Exclude:
+    - spec/policies/**/*
+
+RSpec/RepeatedExample:
+  Exclude:
+    - spec/policies/**/*
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
