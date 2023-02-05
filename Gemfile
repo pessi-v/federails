@@ -8,5 +8,12 @@ gem "sqlite3"
 
 gem "sprockets-rails"
 
+# Linters
+gem "rubocop"
+gem "rubocop-performance"
+gem "rubocop-rails"
+gem "rubocop-rake"
+gem "rubocop-rspec"
+
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
