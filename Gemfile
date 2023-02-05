@@ -17,6 +17,7 @@ gem 'rubocop-rspec'
 
 # Testing
 gem 'factory_bot_rails'
+gem 'faker'
 gem 'rspec-rails'
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
