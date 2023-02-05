@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'utils/host'
 
-RSpec.describe Utils::Host do
+RSpec.describe Federails::Utils::Host do
   describe '#localhost' do
     # Backup Rails configuration
     before do
