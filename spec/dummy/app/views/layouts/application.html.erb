@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <nav>
+      <% if !current_user %>
+        <%= link_to 'Login', :new_user_session %>
+        <%= link_to 'Register', :new_user_registration %>
+      <% else %>
+        <div>
+          <%= current_user.email %>
+          <%= button_to 'Logout', :destroy_user_session, method: :delete %>
+        </div>
+      <% end %>
+    </nav>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
