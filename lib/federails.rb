@@ -1,5 +1,5 @@
-require "federails/version"
-require "federails/engine"
+require 'federails/version'
+require 'federails/engine'
 
 module Federails
   # Your code goes here...

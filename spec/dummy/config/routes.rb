@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Federails::Engine => "/federails"
+  mount Federails::Engine => '/federails'
 end
