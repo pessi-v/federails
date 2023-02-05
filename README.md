@@ -20,15 +20,32 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-
-```bash
-$ gem install federails
-```
-
 ## Usage
 
-TBD
+### Configuration
+
+Execute
+
+```sh
+bundle exec rails generate federails:install
+```
+
+It creates an initializer and a configuration file:
+- `config/initializers/federails.rb`
+- `config/federails.yml`
+
+By default, Federails is configured using `config_from` method, that loads the appropriate YAML file, but you may want
+to configure it differently:
+
+```rb
+# config/initializers/federails.rb
+Federails.configure do |config|
+  config.host = 'localhost'
+  # ...
+end
+```
+
+For now, refer to [the source code](lib/federails/configuration.rb) for the full list of options.
 
 ## Community
 

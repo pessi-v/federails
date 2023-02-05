@@ -1,0 +1,15 @@
+---
+defaults: &defaults
+  site_host: http://localhost
+  site_port: 3000
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  site_port: null
+
+production:
+  <<: *defaults
+  site_port: 443
