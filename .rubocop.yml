@@ -1,5 +1,6 @@
 ---
 require:
+  - rubocop-faker
   - rubocop-performance
   - rubocop-rails
   - rubocop-rake

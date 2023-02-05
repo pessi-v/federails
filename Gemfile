@@ -10,6 +10,7 @@ gem 'sprockets-rails'
 
 # Linters
 gem 'rubocop'
+gem 'rubocop-faker'
 gem 'rubocop-performance'
 gem 'rubocop-rails'
 gem 'rubocop-rake'
