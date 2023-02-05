@@ -4,9 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Specify your gem's dependencies in federails.gemspec.
 gemspec
 
-gem 'sqlite3'
-
+# Dummy app
+gem 'devise'
 gem 'sprockets-rails'
+gem 'sqlite3'
 
 # Linters
 gem 'rubocop'
