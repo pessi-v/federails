@@ -3,6 +3,7 @@ defaults: &defaults
   force_ssl: false
   site_host: http://localhost
   site_port: 3000
+  user_class: '::User'
 
 development:
   <<: *defaults

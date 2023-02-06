@@ -20,6 +20,7 @@ module Federails
       :force_ssl,
       :site_host,
       :site_port,
+      :user_class,
     ].each { |key| Configuration.send "#{key}=", config[key] }
   end
 end
