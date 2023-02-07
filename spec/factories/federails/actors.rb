@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :actor do
+  factory :actor, class: 'Federails::Actor' do
     trait :distant do
       federated_url { "https://example.com/actors/#{rand(1...10_000)}" }
       username { Faker::Internet.username separators: ['-', '_'] }

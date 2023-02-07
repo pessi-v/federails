@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :activity do
+  factory :activity, class: 'Federails::Activity' do
     actor { raise 'Please provide an actor' }
 
     trait :create do

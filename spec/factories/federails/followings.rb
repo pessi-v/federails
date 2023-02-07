@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :following do
+  factory :following, class: 'Federails::Following' do
     actor { raise 'Please provide an actor' }
     target_actor { raise 'Please provide a target actor' }
 
