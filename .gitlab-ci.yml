@@ -1,0 +1,40 @@
+---
+image: starefossen/ruby-node:2-10
+
+stages:
+  - prepare
+  - test
+
+cache: &dependencies
+  untracked: true
+  key: ${CI_COMMIT_REF_SLUG}
+  policy: pull
+  paths:
+    - 'vendor/'
+
+before_script:
+  - ruby --version
+  - bundle --version
+  - bundle config set --local deployment 'true'
+  - bundle config set --local jobs $(nproc)
+  - bundle install --quiet
+
+# Bundle stage
+# ======================================
+
+bundle:
+  stage: prepare
+  script:
+    - echo "This job only fills the cache"
+  cache:
+    <<: *dependencies
+    policy: push
+
+# Code lint
+# ======================================
+
+rubocop:
+  stage: test
+  script: bundle exec rubocop
+  dependencies:
+    - bundle
