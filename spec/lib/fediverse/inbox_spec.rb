@@ -19,12 +19,12 @@ module Fediverse
       it 'creates the following' do
         expect do
           described_class.send(:handle_create_follow_request, distant_following)
-        end.to change(Following, :count).by 1
+        end.to change(Federails::Following, :count).by 1
       end
     end
 
     describe '#handle_accept_request' do
-      let(:local_following) { Following.create actor: actor, target_actor: distant_actor }
+      let(:local_following) { Federails::Following.create actor: actor, target_actor: distant_actor }
       let(:payload) do
         {
           'actor' => distant_actor.federated_url,
@@ -82,22 +82,22 @@ module Fediverse
       end
 
       context 'with a pending following' do
-        let(:local_following) { Following.create actor: actor, target_actor: distant_actor }
+        let(:local_following) { Federails::Following.create actor: actor, target_actor: distant_actor }
 
         it 'destroys the target Following' do
           expect do
             described_class.send(:handle_undo_request, payload)
-          end.to change(Following, :count).by(-1)
+          end.to change(Federails::Following, :count).by(-1)
         end
       end
 
       context 'with an accepted following' do
-        let(:local_following) { Following.create actor: actor, target_actor: distant_actor, status: :accepted }
+        let(:local_following) { Federails::Following.create actor: actor, target_actor: distant_actor, status: :accepted }
 
         it 'destroys the target Following' do
           expect do
             described_class.send(:handle_undo_request, payload)
-          end.to change(Following, :count).by(-1)
+          end.to change(Federails::Following, :count).by(-1)
         end
       end
     end
