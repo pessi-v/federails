@@ -7,12 +7,12 @@ require:
   - rubocop-rspec
 
 AllCops:
+  # Do not lint generated files
   Exclude:
     - bin/*
-    - coverage/**/*
     - spec/dummy/bin/*
     - spec/dummy/db/schema.rb
-    - vendor/**/*
+    - coverage/**/*
   TargetRubyVersion: 2.7.4
   NewCops: enable
 
@@ -38,32 +38,45 @@ Layout/HashAlignment:
 Layout/LineLength:
   Enabled: false
 
-Lint/UselessAssignment:
-  Exclude:
-    - spec/controllers/*.rb
-
 Metrics/AbcSize:
   Max: 16.5
   Exclude:
+    # Migrations
+    - db/migrate/*.rb
     - spec/dummy/db/migrate/*.rb
 
 Metrics/BlockLength:
   Exclude:
+    # Migrations
+    - db/migrate/*.rb
     - spec/dummy/db/migrate/*.rb
+    # Routes
     - config/routes.rb
+    - spec/dummy/config/routes.rb
+    # Tasks
     - lib/tasks/*.rake
-    - spec/**/*_spec.rb
+    - spec/dummy/lib/tasks/*.rake
+    # Factories
     - spec/factories/*.rb
+    - spec/dummy/spec/factories/*.rb
+    # Other
+    - spec/**/*_spec.rb
     - spec/support/shared_examples/**/*.rb
 
 Metrics/ClassLength:
   Exclude:
+    - db/migrate/*.rb
     - spec/dummy/db/migrate/*.rb
 
 Metrics/MethodLength:
   Max: 12
   Exclude:
+    - db/migrate/*.rb
     - spec/dummy/db/migrate/*.rb
+
+Metrics/ModuleLength:
+  Exclude:
+    - spec/**/*_spec.rb
 
 Rails/DynamicFindBy:
   AllowedMethods:
@@ -74,13 +87,30 @@ Rails/DynamicFindBy:
 Rails/FilePath:
   EnforcedStyle: arguments
 
+Rails/I18nLocaleTexts:
+  Exclude:
+    - spec/dummy/**/*
+
 RSpec/DescribeClass:
   Exclude:
+    # Tasks
     - spec/tasks/*_spec.rb
+    - spec/dummy/spec/tasks/*_spec.rb
 
 RSpec/ExampleLength:
   Exclude:
+    # Migrations
     - spec/migrations/*_spec.rb
+    - spec/dummy/spec/migrations/*_spec.rb
+    # Views are lengthy by design
+    - spec/views/**/*_spec.rb
+    - spec/dummy/spec/views/**/*_spec.rb
+
+RSpec/ExpectActual:
+  Exclude:
+    # Routing specs
+    - spec/routing/**/*_spec.rb
+    - spec/dummy/spec/routing/**/*_spec.rb
 
 RSpec/FactoryBot/ConsistentParenthesesStyle:
   EnforcedStyle: omit_parentheses
@@ -92,11 +122,17 @@ RSpec/FactoryBot/SyntaxMethods:
 
 RSpec/MultipleExpectations:
   Exclude:
+    # Migrations
     - spec/migrations/*_spec.rb
+    - spec/dummy/spec/migrations/*_spec.rb
+    # Views spec have multiple expectations by design
+    - spec/dummy/spec/views/**/*_spec.rb
 
 RSpec/MultipleMemoizedHelpers:
   Exclude:
+    # Migrations
     - spec/migrations/*_spec.rb
+    - spec/dummy/spec/migrations/*_spec.rb
 
 RSpec/NestedGroups:
   Max: 4
@@ -106,15 +142,15 @@ RSpec/Rails/InferredSpecType:
 
 RSpec/RepeatedDescription:
   Exclude:
+    # Policies
     - spec/policies/**/*
+    - spec/dummy/spec/policies/**/*
 
 RSpec/RepeatedExample:
   Exclude:
+    # Policies
     - spec/policies/**/*
-
-Style/ClassAndModuleChildren:
-  Exclude:
-    - spec/**/*
+    - spec/dummy/spec/policies/**/*
 
 Style/Documentation:
   Enabled: false
