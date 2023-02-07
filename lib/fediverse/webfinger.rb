@@ -1,4 +1,4 @@
-require 'utils/host'
+require 'federails/utils/host'
 
 module Fediverse
   class Webfinger
