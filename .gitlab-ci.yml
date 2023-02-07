@@ -1,5 +1,5 @@
 ---
-image: starefossen/ruby-node:2-10
+image: ruby:2.7
 
 stages:
   - prepare
@@ -7,7 +7,9 @@ stages:
 
 cache: &dependencies
   untracked: true
-  key: ${CI_COMMIT_REF_SLUG}
+  key:
+    files:
+      - Gemfile.lock
   policy: pull
   paths:
     - 'vendor/'
@@ -44,5 +46,15 @@ factory_bot_lint:
   script:
     - bundle exec rails db:test:prepare
     - bundle exec rake app:factory_bot:lint
+  dependencies:
+    - bundle
+
+# Tests
+# ======================================
+rspec:
+  stage: test
+  script:
+    - bundle exec rails db:test:prepare
+    - bundle exec rspec
   dependencies:
     - bundle
