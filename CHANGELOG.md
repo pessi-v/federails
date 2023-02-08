@@ -28,3 +28,26 @@ Please, keep them in this order when updating.
 
 ## [Unreleased]
 
+### Added
+
+#### Project
+
+- Add MIT license
+- Configure Gitlab CI
+
+#### Gems
+
+- Add Rubocop and plugins
+- Add and configure RSpec
+- Add and configure FactoryBot
+
+#### Dummy app
+
+- Add and configure Devise
+- Create dummy page and layout
+- Create seeds
+
+## [0.0.1]
+
+Creation of an empty engine
+
