@@ -43,6 +43,33 @@ To contribute:
 3. Ideally create small pull requests. Don't hesitate to open them early so we all can follow how it's going
 4. Get congratulated
 
+### Tooling
+
+#### RSpec
+
+RSpec is the test suite. Start it with
+
+```sh
+bundle exec rspec
+```
+
+#### Rubocop
+
+Rubocop is a linter. Start it with
+
+```sh
+bundle exec rubocop
+```
+
+#### FactoryBot
+
+FactoryBot is a factory generator used in tests and development.
+A rake task checks the replayability of the factories and traits:
+
+```sh
+bundle exec app:factory_bot:lint
+```
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
