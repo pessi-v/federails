@@ -40,6 +40,7 @@ Please, keep them in this order when updating.
 - Add Rubocop and plugins
 - Add and configure RSpec
 - Add and configure FactoryBot
+- Add JSON-LD and JSON-LD-Preloaded
 
 #### Dummy app
 
