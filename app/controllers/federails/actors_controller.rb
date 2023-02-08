@@ -1,6 +1,6 @@
 module Federails
   class ActorsController < ApplicationController
-    before_action :set_federation_actor, only: [:show, :followers, :following]
+    before_action :set_actor, only: [:show, :followers, :following]
 
     # GET /federation/actors/1
     # GET /federation/actors/1.json
@@ -19,7 +19,7 @@ module Federails
     private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_federation_actor
+    def set_actor
       @actor = Actor.find(params[:id])
       authorize @actor
     end

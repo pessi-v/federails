@@ -2,7 +2,7 @@ require 'fediverse/inbox'
 
 module Federails
   class ActivitiesController < ApplicationController
-    before_action :set_federation_activity, only: [:show]
+    before_action :set_activity, only: [:show]
 
     # GET /federation/activities
     # GET /federation/actors/1/outbox.json
@@ -31,7 +31,7 @@ module Federails
     private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_federation_activity
+    def set_activity
       @activity = Activity.find_by!(actor_id: params[:actor_id], id: params[:id])
     end
 
