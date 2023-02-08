@@ -1,5 +1,5 @@
-module Federation
-  class FollowingsController < FederationApplicationController
+module Federails
+  class FollowingsController < ApplicationController
     before_action :set_following, only: [:show]
 
     # GET /federation/actors/1/followings/1.json

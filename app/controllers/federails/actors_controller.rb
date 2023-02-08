@@ -1,5 +1,5 @@
-module Federation
-  class ActorsController < FederationApplicationController
+module Federails
+  class ActorsController < ApplicationController
     before_action :set_federation_actor, only: [:show, :followers, :following]
 
     # GET /federation/actors/1

@@ -1,7 +1,7 @@
 require 'fediverse/inbox'
 
-module Federation
-  class ActivitiesController < FederationApplicationController
+module Federails
+  class ActivitiesController < ApplicationController
     before_action :set_federation_activity, only: [:show]
 
     # GET /federation/activities
