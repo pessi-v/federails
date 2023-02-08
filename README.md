@@ -1,10 +1,13 @@
 # Federails
-Short description and motivation.
+
+Federails is an engine that brings ActivityPub to Ruby on Rails application.
 
 ## Usage
+
 How to use my plugin.
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -12,17 +15,34 @@ gem "federails"
 ```
 
 And then execute:
+
 ```bash
 $ bundle
 ```
 
 Or install it yourself as:
+
 ```bash
 $ gem install federails
 ```
 
 ## Contributing
-Contribution directions go here.
+
+Contributions are welcome, may it be issues, ideas, code or whatever you want to share. Please note:
+
+- This project is _fast forward_ only: we don't do merge commits
+- We adhere to [semantic versioning](). Please update the changelog in your commits
+- We try to adhere to [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) principles
+- We _may_ rename your commits before merging them
+- We _may_ split your commits before merging them
+
+To contribute:
+
+1. Fork this repository
+2. Create small commits
+3. Ideally create small pull requests. Don't hesitate to open them early so we all can follow how it's going
+4. Get congratulated
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
