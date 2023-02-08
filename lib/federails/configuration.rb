@@ -13,6 +13,9 @@ module Federails
     mattr_accessor :user_class
     @@user_class = '::User'
 
+    mattr_accessor :routes_path
+    @@routes_path = :federation
+
     ##
     # @return [String] Table used for user model
     def self.user_table

@@ -4,6 +4,7 @@ defaults: &defaults
   site_host: http://localhost
   site_port: 3000
   user_class: '::User'
+  routes_path: federation
 
 development:
   <<: *defaults
