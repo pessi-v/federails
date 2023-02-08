@@ -2,9 +2,9 @@
 
 Federails is an engine that brings ActivityPub to Ruby on Rails application.
 
-## Usage
+## Features
 
-How to use my plugin.
+TBD
 
 ## Installation
 
@@ -25,6 +25,10 @@ Or install it yourself as:
 ```bash
 $ gem install federails
 ```
+
+## Usage
+
+TBD
 
 ## Contributing
 
