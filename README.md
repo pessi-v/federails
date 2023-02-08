@@ -30,6 +30,10 @@ $ gem install federails
 
 TBD
 
+## Community
+
+You can join the [matrix chat room](https://matrix.to/#/#federails:matrix.org) to chat with humans.
+
 ## Contributing
 
 Contributions are welcome, may it be issues, ideas, code or whatever you want to share. Please note:
