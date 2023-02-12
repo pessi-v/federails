@@ -16,6 +16,9 @@ module Federails
     mattr_accessor :routes_path
     @@routes_path = :federation
 
+    mattr_accessor :user_profile_url_method
+    @@user_profile_url_method = :user_url
+
     ##
     # @return [String] Table used for user model
     def self.user_table

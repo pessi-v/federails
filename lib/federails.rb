@@ -22,6 +22,7 @@ module Federails
       :site_port,
       :user_class,
       :routes_path,
+      :user_profile_url_method,
     ].each { |key| Configuration.send "#{key}=", config[key] }
   end
 end
