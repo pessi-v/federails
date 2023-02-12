@@ -1,27 +1,31 @@
 require 'rails_helper'
-require 'utils/host'
+require 'federails/utils/host'
 
 RSpec.describe Federails::Utils::Host do
   describe '#localhost' do
     # Backup Rails configuration
     before do
-      @old_params = Rails.application.default_url_options
+      @old_site_host = Federails.configuration.site_host
+      @old_site_port = Federails.configuration.site_port
     end
 
     # Restore Rails configuration
     after do
-      Rails.application.default_url_options = @old_params # rubocop:disable RSpec/InstanceVariable
+      Federails.configuration.site_host = @old_site_host # rubocop:disable RSpec/InstanceVariable
+      Federails.configuration.site_port = @old_site_port # rubocop:disable RSpec/InstanceVariable
     end
 
     it 'returns local host and port' do
-      Rails.application.default_url_options = { host: 'http://localhost', port: 3000 }
+      Federails.configuration.site_host = 'http://localhost'
+      Federails.configuration.site_port = 3000
 
       expect(described_class.localhost).to eq 'localhost:3000'
     end
 
     context 'when a common port is declared' do
       it 'returns host only' do
-        Rails.application.default_url_options = { host: 'http://example.com', port: 80 }
+        Federails.configuration.site_host = 'http://example.com'
+        Federails.configuration.site_port = 80
 
         expect(described_class.localhost).to eq 'example.com'
       end
@@ -29,7 +33,8 @@ RSpec.describe Federails::Utils::Host do
 
     context 'when no port is declared' do
       it 'returns host only' do
-        Rails.application.default_url_options = { host: 'http://example.com' }
+        Federails.configuration.site_host = 'http://example.com'
+        Federails.configuration.site_port = nil
 
         expect(described_class.localhost).to eq 'example.com'
       end
