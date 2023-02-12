@@ -1,0 +1,92 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://mamot.fr/.well-known/webfinger?resource=acct%3Asome_inexistant_account%40mamot.fr
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v1.10.3
+  response:
+    status:
+      code: 301
+      message: Moved Permanently
+    headers:
+      server:
+      - nginx/1.18.0
+      date:
+      - Sun, 12 Feb 2023 15:14:21 GMT
+      content-type:
+      - text/html
+      content-length:
+      - '169'
+      connection:
+      - keep-alive
+      location:
+      - https://mamot.fr/.well-known/webfinger?resource=acct%3Asome_inexistant_account%40mamot.fr
+    body:
+      encoding: UTF-8
+      string: "<html>\r\n<head><title>301 Moved Permanently</title></head>\r\n<body>\r\n<center><h1>301
+        Moved Permanently</h1></center>\r\n<hr><center>nginx/1.18.0</center>\r\n</body>\r\n</html>\r\n"
+  recorded_at: Sun, 12 Feb 2023 15:14:21 GMT
+- request:
+    method: get
+    uri: https://mamot.fr/.well-known/webfinger?resource=acct%3Asome_inexistant_account%40mamot.fr
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v1.10.3
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      date:
+      - Sun, 12 Feb 2023 15:14:22 GMT
+      content-type:
+      - text/html
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      server:
+      - Mastodon
+      x-frame-options:
+      - DENY
+      x-content-type-options:
+      - nosniff
+      x-xss-protection:
+      - '0'
+      permissions-policy:
+      - interest-cohort=()
+      cache-control:
+      - max-age=180, public
+      content-security-policy:
+      - 'base-uri ''none''; default-src ''none''; frame-ancestors ''none''; font-src
+        ''self'' https://mamot.fr; img-src ''self'' https: data: blob: https://mamot.fr;
+        style-src ''self'' https://mamot.fr ''nonce-INsP6r0UFi5sudOKVDbL6g==''; media-src
+        ''self'' https: data: https://mamot.fr; frame-src ''self'' https:; manifest-src
+        ''self'' https://mamot.fr; connect-src ''self'' data: blob: https://mamot.fr
+        https://mamot.fr wss://mamot.fr; script-src ''self'' https://mamot.fr ''wasm-unsafe-eval'';
+        child-src ''self'' blob: https://mamot.fr; worker-src ''self'' blob: https://mamot.fr'
+      x-request-id:
+      - 865faa59-7855-473a-8ca8-b0db6631fc09
+      x-runtime:
+      - '0.007354'
+      strict-transport-security:
+      - max-age=63072000; includeSubDomains
+      vary:
+      - Origin
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Sun, 12 Feb 2023 15:14:22 GMT
+recorded_with: VCR 6.1.0

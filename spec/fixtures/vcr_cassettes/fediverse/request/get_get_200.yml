@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://mamot.fr/users/mtancoigne
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.3
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sun, 12 Feb 2023 15:14:23 GMT
+      content-type:
+      - application/activity+json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      server:
+      - Mastodon
+      x-frame-options:
+      - DENY
+      x-content-type-options:
+      - nosniff
+      x-xss-protection:
+      - '0'
+      permissions-policy:
+      - interest-cohort=()
+      referrer-policy:
+      - origin
+      vary:
+      - Accept, Origin
+      cache-control:
+      - max-age=180, public
+      etag:
+      - W/"4053fc0c9bff9105caa70287f6bf47db"
+      content-security-policy:
+      - 'base-uri ''none''; default-src ''none''; frame-ancestors ''none''; font-src
+        ''self'' https://mamot.fr; img-src ''self'' https: data: blob: https://mamot.fr;
+        style-src ''self'' https://mamot.fr ''nonce-XpmnMcFkbAyLPcxAEqgOyQ==''; media-src
+        ''self'' https: data: https://mamot.fr; frame-src ''self'' https:; manifest-src
+        ''self'' https://mamot.fr; connect-src ''self'' data: blob: https://mamot.fr
+        https://mamot.fr wss://mamot.fr; script-src ''self'' https://mamot.fr ''wasm-unsafe-eval'';
+        child-src ''self'' blob: https://mamot.fr; worker-src ''self'' blob: https://mamot.fr'
+      x-request-id:
+      - a35f274e-2fc6-4d97-8bc3-72e689d8b784
+      x-runtime:
+      - '0.023027'
+      strict-transport-security:
+      - max-age=63072000; includeSubDomains
+      x-cached:
+      - HIT
+    body:
+      encoding: UTF-8
+      string: '{"@context":["https://www.w3.org/ns/activitystreams","https://w3id.org/security/v1",{"manuallyApprovesFollowers":"as:manuallyApprovesFollowers","toot":"http://joinmastodon.org/ns#","featured":{"@id":"toot:featured","@type":"@id"},"featuredTags":{"@id":"toot:featuredTags","@type":"@id"},"alsoKnownAs":{"@id":"as:alsoKnownAs","@type":"@id"},"movedTo":{"@id":"as:movedTo","@type":"@id"},"schema":"http://schema.org#","PropertyValue":"schema:PropertyValue","value":"schema:value","discoverable":"toot:discoverable","Device":"toot:Device","Ed25519Signature":"toot:Ed25519Signature","Ed25519Key":"toot:Ed25519Key","Curve25519Key":"toot:Curve25519Key","EncryptedMessage":"toot:EncryptedMessage","publicKeyBase64":"toot:publicKeyBase64","deviceId":"toot:deviceId","claim":{"@type":"@id","@id":"toot:claim"},"fingerprintKey":{"@type":"@id","@id":"toot:fingerprintKey"},"identityKey":{"@type":"@id","@id":"toot:identityKey"},"devices":{"@type":"@id","@id":"toot:devices"},"messageFranking":"toot:messageFranking","messageType":"toot:messageType","cipherText":"toot:cipherText","suspended":"toot:suspended","focalPoint":{"@container":"@list","@id":"toot:focalPoint"}}],"id":"https://mamot.fr/users/mtancoigne","type":"Person","following":"https://mamot.fr/users/mtancoigne/following","followers":"https://mamot.fr/users/mtancoigne/followers","inbox":"https://mamot.fr/users/mtancoigne/inbox","outbox":"https://mamot.fr/users/mtancoigne/outbox","featured":"https://mamot.fr/users/mtancoigne/collections/featured","featuredTags":"https://mamot.fr/users/mtancoigne/collections/tags","preferredUsername":"mtancoigne","name":"Manuel
+        Tancoigne","summary":"","url":"https://mamot.fr/@mtancoigne","manuallyApprovesFollowers":false,"discoverable":false,"published":"2020-02-13T00:00:00Z","devices":"https://mamot.fr/users/mtancoigne/collections/devices","publicKey":{"id":"https://mamot.fr/users/mtancoigne#main-key","owner":"https://mamot.fr/users/mtancoigne","publicKeyPem":"-----BEGIN
+        PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvp/A1RqJN5g6834otu28\nk5M2wI7BAoZEGgl36EbUj3aWdzFDWaCJi2D4ZYdSFRSjAfHwoUGvGPP4nvYoQ1bt\n6Zgy7olRAFacq8GIK1qiT6kmWwowgI6TF2WDcqtXb002itZtIjWiSXupI5smY8C2\nL+1KGbocs8l34B2cmQUFenXfIhBmGFTIGw8vSKR8T3pUGyH/nxk5IVriewx27k8M\nVaglIXxKqb7KJ4XnGPQViRIL7RCdrfgc/rwPRwteztMTKA+XrF4tSyRe1zu9hm+9\nTXq49Ev2jrO8KV6wLj9K+IYnnk7SzVNKZN1iY5i10VVW+tHhpQfbNiIxZtLOwqB5\newIDAQAB\n-----END
+        PUBLIC KEY-----\n"},"tag":[],"attachment":[{"type":"PropertyValue","name":"site","value":"\u003ca
+        href=\"https://experimentslabs.com\" target=\"_blank\" rel=\"nofollow noopener
+        noreferrer me\"\u003e\u003cspan class=\"invisible\"\u003ehttps://\u003c/span\u003e\u003cspan
+        class=\"\"\u003eexperimentslabs.com\u003c/span\u003e\u003cspan class=\"invisible\"\u003e\u003c/span\u003e\u003c/a\u003e"}],"endpoints":{"sharedInbox":"https://mamot.fr/inbox"},"icon":{"type":"Image","mediaType":"image/png","url":"https://mamot.fr/system/accounts/avatars/000/289/545/original/18c5be972969f5a7.png"},"image":{"type":"Image","mediaType":"image/jpeg","url":"https://mamot.fr/system/accounts/headers/000/289/545/original/ef77868c082f11d7.jpg"}}'
+  recorded_at: Sun, 12 Feb 2023 15:14:23 GMT
+recorded_with: VCR 6.1.0
