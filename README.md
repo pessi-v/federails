@@ -2,9 +2,26 @@
 
 Federails is an engine that brings ActivityPub to Ruby on Rails application.
 
+## Community
+
+You can join the [matrix chat room](https://matrix.to/#/#federails:matrix.org) to chat with humans.
+
+Open issues or feature requests on the [issue tracker](https://gitlab.com/experimentslabs/federails/-/issues)
+
 ## Features
 
-TBD
+This engine is meant to be used in Rails applications to add the ability to act as an ActivityPub server.
+
+As the project is in an early stage of development we're unable to provide a clean list of what works and what is missing.
+
+The general direction is to be able to:
+
+- publish and subscribe to any type of content
+- have a discovery endpoint (`webfinger`)
+- have a following/followers system
+- implement all the parts of the (RFC) labelled with **MUST** and **MUST NOT**
+- implement some or all the parts of the RFC labelled with **SHOULD** and **SHOULD NOT**
+- maybe implement the parts of the RFC labelled with **MAY**
 
 ## Installation
 
@@ -20,11 +37,9 @@ And then execute:
 $ bundle
 ```
 
-## Usage
-
 ### Configuration
 
-Execute
+Generate configuration files:
 
 ```sh
 bundle exec rails generate federails:install
@@ -46,6 +61,14 @@ end
 ```
 
 For now, refer to [the source code](lib/federails/configuration.rb) for the full list of options.
+
+### Migrations
+
+Copy the migrations:
+
+```sh
+bundle exec rails federails:install:migrations
+```
 
 ### User model
 
@@ -76,10 +99,6 @@ actor.followers
 actor.following
 #...
 ```
-
-## Community
-
-You can join the [matrix chat room](https://matrix.to/#/#federails:matrix.org) to chat with humans.
 
 ## Contributing
 
