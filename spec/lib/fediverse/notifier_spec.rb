@@ -3,8 +3,6 @@ require 'fediverse/notifier'
 
 module Fediverse
   RSpec.describe Notifier do
-    include Routeable
-
     let(:local_actor) { FactoryBot.create(:user, :confirmed).actor }
     let(:distant_target_actor) { FactoryBot.create :actor, :distant }
 

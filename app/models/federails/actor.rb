@@ -3,8 +3,6 @@ require 'fediverse/webfinger'
 
 module Federails
   class Actor < ApplicationRecord
-    include Routeable
-
     validates :federated_url, presence: { unless: :user_id }, uniqueness: { unless: :user_id }
     validates :username, presence: { unless: :user_id }
     validates :server, presence: { unless: :user_id }
@@ -31,7 +29,7 @@ module Federails
     end
 
     def federated_url
-      local? ? federation_actor_url(self) : attributes['federated_url'].presence
+      local? ? Federails::Engine.routes.url_helpers.actor_url(self) : attributes['federated_url'].presence
     end
 
     def username
@@ -47,23 +45,28 @@ module Federails
     end
 
     def inbox_url
-      local? ? federation_actor_inbox_url(self) : attributes['inbox_url']
+      local? ? Federails::Engine.routes.url_helpers.actor_inbox_url(self) : attributes['inbox_url']
     end
 
     def outbox_url
-      local? ? federation_actor_outbox_url(self) : attributes['inbox_url']
+      local? ? Federails::Engine.routes.url_helpers.actor_outbox_url(self) : attributes['outbox_url']
     end
 
     def followers_url
-      local? ? followers_federation_actor_url(self) : attributes['followers_url']
+      local? ? Federails::Engine.routes.url_helpers.followers_actor_url(self) : attributes['followers_url']
     end
 
     def followings_url
-      local? ? following_federation_actor_url(self) : attributes['followings_url']
+      local? ? Federails::Engine.routes.url_helpers.following_actor_url(self) : attributes['followings_url']
     end
 
     def profile_url
-      local? ? user_url(user) : attributes['profile_url'].presence
+      return attributes['profile_url'].presence unless local?
+
+      method = Federails.configuration.user_profile_url_method
+      return Federails::Engine.routes.url_helpers.actor_url self unless method
+
+      Rails.application.routes.send method, user
     end
 
     def at_address
