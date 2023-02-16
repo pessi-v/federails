@@ -2,7 +2,7 @@ require 'federails/utils/host'
 require 'fediverse/webfinger'
 
 module Federails
-  class Actor < ApplicationRecord
+  class Actor < ApplicationRecord # rubocop:disable Metrics/ClassLength
     validates :federated_url, presence: { unless: :user_id }, uniqueness: { unless: :user_id }
     validates :username, presence: { unless: :user_id }
     validates :server, presence: { unless: :user_id }
@@ -13,8 +13,7 @@ module Federails
     validates :profile_url, presence: { unless: :user_id }
     validates :user_id, uniqueness: true, if: :local?
 
-    belongs_to :user, optional: true
-    has_many :notes, dependent: :destroy
+    belongs_to :user, class_name: Federails.configuration.user_class, optional: true # rubocop:disable Rails/ReflectionClassName
     # FIXME: Handle this with something like undelete
     has_many :activities, dependent: :destroy
     has_many :following_followers, class_name: 'Following', foreign_key: :target_actor_id, dependent: :destroy, inverse_of: :target_actor
@@ -33,11 +32,15 @@ module Federails
     end
 
     def username
-      local? ? user.username : attributes['username']
+      return attributes['username'] unless local?
+
+      user.send(Federails.configuration.user_username_field).to_s
     end
 
     def name
-      local? ? user.name : attributes['name'] || username
+      value = local? ? user.send(Federails.configuration.user_name_field).to_s : attributes[:name]
+
+      value || username
     end
 
     def server
@@ -89,7 +92,7 @@ module Federails
         parts = Fediverse::Webfinger.split_account account
 
         if Fediverse::Webfinger.local_user? parts
-          actor = User.find_by!(username: parts[:username]).actor
+          actor = Federails.configuration.user_model.find_by!({ Federails.configuration.user_username_field => parts[:username] }).actor
         else
           actor = find_by username: parts[:username], server: parts[:domain]
           actor ||= Fediverse::Webfinger.fetch_actor(parts[:username], parts[:domain])
@@ -100,12 +103,12 @@ module Federails
 
       def find_by_federation_url(federated_url)
         local_route = Utils::Host.local_route federated_url
-        return find local_route[:id] if local_route && local_route[:controller] == 'federation/actors' && local_route[:action] == 'show'
+        return find local_route[:id] if local_route && local_route[:controller] == 'federails/actors' && local_route[:action] == 'show'
 
         actor = find_by federated_url: federated_url
-        actor ||= Fediverse::Webfinger.fetch_actor_url(federated_url)
+        return actor if actor
 
-        actor
+        Fediverse::Webfinger.fetch_actor_url(federated_url)
       end
 
       def find_or_create_by_account(account)
