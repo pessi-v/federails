@@ -17,6 +17,7 @@ module Federails
   def self.config_from(name)
     config = Rails.application.config_for name
     [
+      :force_ssl,
       :site_host,
       :site_port,
     ].each { |key| Configuration.send "#{key}=", config[key] }

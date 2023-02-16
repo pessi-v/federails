@@ -1,5 +1,6 @@
 ---
 defaults: &defaults
+  force_ssl: false
   site_host: http://localhost
   site_port: 3000
 
@@ -12,4 +13,5 @@ test:
 
 production:
   <<: *defaults
+  force_ssl: true
   site_port: 443
