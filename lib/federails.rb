@@ -23,6 +23,7 @@ module Federails
       :user_class,
       :routes_path,
       :user_profile_url_method,
+      :user_name_field,
       :user_username_field,
     ].each { |key| Configuration.send "#{key}=", config[key] }
   end

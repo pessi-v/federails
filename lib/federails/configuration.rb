@@ -19,6 +19,9 @@ module Federails
     mattr_accessor :user_profile_url_method
     @@user_profile_url_method = :user_url
 
+    mattr_accessor :user_name_field
+    @@user_name_field = nil
+
     mattr_accessor :user_username_field
     @@user_username_field = :id
 
