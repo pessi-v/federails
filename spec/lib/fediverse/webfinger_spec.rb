@@ -106,7 +106,7 @@ module Fediverse
     describe '#fetch_actor_url' do
       it 'returns an Actor' do
         VCR.use_cassette 'fediverse/webfinger/fetch_actor_url_get' do
-          expect(described_class.fetch_actor_url('https://mamot.fr/users/mtancoigne')).to be_a Actor
+          expect(described_class.fetch_actor_url('https://mamot.fr/users/mtancoigne')).to be_a Federails::Actor
         end
       end
 
@@ -128,7 +128,7 @@ module Fediverse
     describe '#fetch_actor' do
       it 'returns an Actor' do
         VCR.use_cassette 'fediverse/webfinger/fetch_actor_get' do
-          expect(described_class.fetch_actor('mtancoigne', 'mamot.fr')).to be_a Actor
+          expect(described_class.fetch_actor('mtancoigne', 'mamot.fr')).to be_a Federails::Actor
         end
       end
 

@@ -4,7 +4,7 @@ require 'fediverse/request'
 
 module Fediverse
   RSpec.describe Inbox do
-    let(:actor) { FactoryBot.create(:user, :confirmed).actor }
+    let(:actor) { FactoryBot.create(:user).actor }
     let(:distant_actor) { FactoryBot.create :actor, :distant }
 
     describe '#handle_create_follow_request' do
@@ -57,6 +57,8 @@ module Fediverse
       end
 
       it 'creates a new note' do
+        skip 'Note are not implemented yet'
+
         expect do
           described_class.send(:handle_create_note, distant_note)
         end.to change(Note, :count).by 1
