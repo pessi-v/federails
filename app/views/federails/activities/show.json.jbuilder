@@ -1,1 +1,1 @@
-json.partial! 'federation/activities/activity', activity: @activity
+json.partial! 'federails/activities/activity', activity: @activity

@@ -8,4 +8,4 @@ json.inbox actor.inbox_url
 json.outbox actor.outbox_url
 json.followers actor.followers_url
 json.following actor.followings_url
-json.url actor_url(actor)
+json.url actor.profile_url

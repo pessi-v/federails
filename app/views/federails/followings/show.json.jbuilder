@@ -1,1 +1,1 @@
-json.partial! 'federation/followings/following', following: @following
+json.partial! 'following/followings/following', following: @following
