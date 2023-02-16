@@ -19,12 +19,13 @@ module Federails
       actors = []
       case action
       when 'Create'
-        actors.push(entity.target_actor) if entity_type == 'Following'
+        actors.push(entity.target_actor) if entity_type == 'Federails::Following'
+        # FIXME: Move this to dummy, somehow
         actors.push(*actor.followers) if entity_type == 'Note'
       when 'Accept'
-        actors.push(entity.actor) if entity_type == 'Following'
+        actors.push(entity.actor) if entity_type == 'Federails::Following'
       when 'Undo'
-        actors.push(entity.target_actor) if entity_type == 'Following'
+        actors.push(entity.target_actor) if entity_type == 'Federails::Following'
       end
 
       actors
