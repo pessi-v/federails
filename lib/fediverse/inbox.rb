@@ -31,14 +31,14 @@ module Fediverse
       end
 
       def handle_create_follow_request(activity)
-        actor        = Actor.find_or_create_by_object activity['actor']
-        target_actor = Actor.find_or_create_by_object activity['object']
+        actor        = Federails::Actor.find_or_create_by_object activity['actor']
+        target_actor = Federails::Actor.find_or_create_by_object activity['object']
 
-        Following.create! actor: actor, target_actor: target_actor, federated_url: activity['id']
+        Federails::Following.create! actor: actor, target_actor: target_actor, federated_url: activity['id']
       end
 
       def handle_create_note(activity)
-        actor = Actor.find_or_create_by_object activity['attributedTo']
+        actor = Federails::Actor.find_or_create_by_object activity['attributedTo']
         Note.create! actor: actor, content: activity['content'], federated_url: activity['id']
       end
 
@@ -46,11 +46,11 @@ module Fediverse
         activity = Request.get(payload['object'])
         raise "Can't accept things that are not Follow" unless activity['type'] == 'Follow'
 
-        actor        = Actor.find_or_create_by_object activity['actor']
-        target_actor = Actor.find_or_create_by_object activity['object']
+        actor        = Federails::Actor.find_or_create_by_object activity['actor']
+        target_actor = Federails::Actor.find_or_create_by_object activity['object']
         raise 'Follow not accepted by target actor but by someone else' if payload['actor'] != target_actor.federated_url
 
-        follow = Following.find_by actor: actor, target_actor: target_actor
+        follow = Federails::Following.find_by actor: actor, target_actor: target_actor
         follow.accept!
       end
 
@@ -58,10 +58,10 @@ module Fediverse
         activity = Request.get(payload['object'])
         raise "Can't undo things that are not Follow" unless activity['type'] == 'Follow'
 
-        actor        = Actor.find_or_create_by_object activity['actor']
-        target_actor = Actor.find_or_create_by_object activity['object']
+        actor        = Federails::Actor.find_or_create_by_object activity['actor']
+        target_actor = Federails::Actor.find_or_create_by_object activity['object']
 
-        follow = Following.find_by actor: actor, target_actor: target_actor
+        follow = Federails::Following.find_by actor: actor, target_actor: target_actor
         follow&.destroy
       end
     end

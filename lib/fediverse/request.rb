@@ -1,3 +1,5 @@
+require 'json/ld'
+
 module Fediverse
   class Request
     BASE_HEADERS = {

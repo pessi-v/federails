@@ -1,3 +1,6 @@
+require 'faraday'
+require 'faraday_middleware'
+
 require 'federails/utils/host'
 
 module Fediverse
@@ -14,7 +17,7 @@ module Fediverse
       end
 
       def local_user?(account)
-        account[:username] && (account[:domain].nil? || (account[:domain] == Utils::Host.localhost))
+        account[:username] && (account[:domain].nil? || (account[:domain] == Federails::Utils::Host.localhost))
       end
 
       def fetch_actor(username, domain)
@@ -27,11 +30,11 @@ module Fediverse
 
       # Returns actor id
       def webfinger(username, domain)
-        scheme = Rails.application.config.site.https_interactions ? 'https' : 'http'
+        scheme = Federails.configuration.force_ssl ? 'https' : 'http'
         json = get_json "#{scheme}://#{domain}/.well-known/webfinger", resource: "acct:#{username}@#{domain}"
         link = json['links'].find { |l| l['type'] == 'application/activity+json' }
 
-        return link['href'] if link
+        link['href'] if link
       end
 
       private
@@ -40,15 +43,15 @@ module Fediverse
         uri    = URI.parse data['id']
         server = uri.host
         server += ":#{uri.port}" if uri.port && [80, 443].exclude?(uri.port)
-        ::Actor.new federated_url:  data['id'],
-                    username:       data['preferredUsername'],
-                    name:           data['name'],
-                    server:         server,
-                    inbox_url:      data['inbox'],
-                    outbox_url:     data['outbox'],
-                    followers_url:  data['followers'],
-                    followings_url: data['following'],
-                    profile_url:    data['url']
+        Federails::Actor.new federated_url:  data['id'],
+                             username:       data['preferredUsername'],
+                             name:           data['name'],
+                             server:         server,
+                             inbox_url:      data['inbox'],
+                             outbox_url:     data['outbox'],
+                             followers_url:  data['followers'],
+                             followings_url: data['following'],
+                             profile_url:    data['url']
       end
 
       def get_json(url, payload = {})
