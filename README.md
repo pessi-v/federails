@@ -47,6 +47,36 @@ end
 
 For now, refer to [the source code](lib/federails/configuration.rb) for the full list of options.
 
+### User model
+
+In the ActivityPub world, we refer to _actors_ to represent the thing that publishes or subscribe to _other actors_.
+
+Federails provides a concern to include in your "user" model or whatever will publish data:
+
+```rb
+# app/models/user.rb
+
+class User < ApplicationRecord
+  # Include the concern here:
+  include Federails::User
+end
+```
+
+This concern automatically create a `Federails::Actor` after a user creation, as well as the `actor` reference. When adding it to
+an existing model with existing data, you will need to generate the corresponding actors yourself in a migration.
+
+Usage example:
+
+```rb
+actor = User.find(1).actor
+
+actor.inbox
+actor.outbox
+actor.followers
+actor.following
+#...
+```
+
 ## Community
 
 You can join the [matrix chat room](https://matrix.to/#/#federails:matrix.org) to chat with humans.
