@@ -2,7 +2,7 @@ require 'rails_helper'
 
 module Federails
   RSpec.describe Activity, type: :model do
-    let(:actor) { FactoryBot.create(:user, :confirmed).actor }
+    let(:actor) { FactoryBot.create(:user).actor }
     let(:distant_actor) { FactoryBot.create :actor, :distant }
     let(:following) { FactoryBot.create :following, actor: actor, target_actor: distant_actor }
     let(:distant_following) { FactoryBot.create :following, actor: distant_actor, target_actor: actor }
@@ -30,6 +30,8 @@ module Federails
 
       context 'when creating a Note' do
         it 'notifies the followers' do
+          skip 'Note are not implemented yet'
+
           distant_following.accept!
           note = FactoryBot.create :note, actor: actor
           expect(note.activities.last.recipients).to eq [distant_actor]

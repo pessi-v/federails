@@ -27,7 +27,7 @@ module Federails
 
     context 'when creating local actors' do
       it 'fails to create the same local actor twice' do
-        user = FactoryBot.create :user, :confirmed
+        user = FactoryBot.create :user
         duplicate = described_class.new(user: user)
         duplicate.validate
         expect(duplicate.errors.details[:user_id][0][:error]).to eq :taken
@@ -36,8 +36,8 @@ module Federails
 
     describe '#find_by_account' do
       it 'returns local actors' do
-        user = FactoryBot.create :user, :confirmed, username: 'toto'
-        result = described_class.find_by_account('toto@localhost')
+        user = FactoryBot.create :user
+        result = described_class.find_by_account("#{user.id}@localhost")
         expect(result).to eq user.actor
       end
 
@@ -89,7 +89,7 @@ module Federails
 
     describe '#find_by_federation_url' do
       it 'returns local actors' do
-        user = FactoryBot.create :user, :confirmed, username: 'toto'
+        user = FactoryBot.create :user
         result = described_class.find_by_federation_url(user.actor.federated_url)
         expect(result).to eq user.actor
       end
