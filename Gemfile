@@ -18,6 +18,7 @@ gem 'rubocop-rake'
 gem 'rubocop-rspec'
 
 # Testing
+gem 'database_cleaner'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'rspec-rails'
