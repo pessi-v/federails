@@ -158,6 +158,9 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
 Style/SymbolArray:
   EnforcedStyle: brackets
 
