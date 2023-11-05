@@ -5,6 +5,7 @@ require:
   - rubocop-rails
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-factory_bot
 
 AllCops:
   # Do not lint generated files
@@ -13,6 +14,7 @@ AllCops:
     - spec/dummy/bin/*
     - spec/dummy/db/schema.rb
     - coverage/**/*
+    - vendor/**/*
   TargetRubyVersion: 3.1.2
   NewCops: enable
 
@@ -30,6 +32,14 @@ RSpec:
         - for_code
     Expectations:
       - test_response_of
+
+FactoryBot/ConsistentParenthesesStyle:
+  EnforcedStyle: omit_parentheses
+
+# I prefer to type the whole calls instead of having the methods included in the
+# tests
+FactoryBot/SyntaxMethods:
+  Enabled: false
 
 Layout/HashAlignment:
   EnforcedColonStyle: table
@@ -111,14 +121,6 @@ RSpec/ExpectActual:
     # Routing specs
     - spec/routing/**/*_spec.rb
     - spec/dummy/spec/routing/**/*_spec.rb
-
-RSpec/FactoryBot/ConsistentParenthesesStyle:
-  EnforcedStyle: omit_parentheses
-
-# I prefer to type the whole calls instead of having the methods included in the
-# tests
-RSpec/FactoryBot/SyntaxMethods:
-  Enabled: false
 
 RSpec/MultipleExpectations:
   Exclude:
