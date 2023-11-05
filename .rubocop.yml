@@ -13,7 +13,7 @@ AllCops:
     - spec/dummy/bin/*
     - spec/dummy/db/schema.rb
     - coverage/**/*
-  TargetRubyVersion: 2.7.4
+  TargetRubyVersion: 3.1.2
   NewCops: enable
 
 RSpec:

@@ -1,7 +1,7 @@
 require_relative 'lib/federails/version'
 
 Gem::Specification.new do |spec|
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 3.1.2'
   spec.name        = 'federails'
   spec.version     = Federails::VERSION
   spec.authors     = ['Manuel Tancoigne']
