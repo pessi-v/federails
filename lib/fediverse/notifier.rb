@@ -4,11 +4,11 @@ module Fediverse
       def post_to_inboxes(activity)
         actors = activity.recipients
 
-        Rails.logger.debug 'Nobody to notice' && return if actors.count.zero?
+        Rails.logger.debug('Nobody to notice') && return if actors.count.zero?
 
         message = Federails::ApplicationController.renderer.new.render(
           template: 'federails/activities/show',
-          locals:   { :@activity => activity },
+          assigns:  { activity: activity },
           format:   :json
         )
         actors.each do |actor|
