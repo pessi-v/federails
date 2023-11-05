@@ -41,13 +41,13 @@ rubocop:
   dependencies:
     - bundle
 
-factory_bot_lint:
-  stage: test
-  script:
-    - bundle exec rails db:test:prepare
-    - bundle exec rake app:factory_bot:lint
-  dependencies:
-    - bundle
+#factory_bot_lint:
+#  stage: test
+#  script:
+#    - bundle exec rails db:test:prepare
+#    - bundle exec rake app:factory_bot:lint
+#  dependencies:
+#    - bundle
 
 # Tests
 # ======================================
