@@ -6,7 +6,7 @@ require 'federails/utils/host'
 module Fediverse
   class Webfinger
     class << self
-      ACCOUNT_REGEX = /(?<username>[a-z0-9\-_.]+)(?:@(?<domain>.*))?/.freeze
+      ACCOUNT_REGEX = /(?<username>[a-z0-9\-_.]+)(?:@(?<domain>.*))?/
 
       def split_resource_account(account)
         /\Aacct:#{ACCOUNT_REGEX}\z/io.match account

@@ -7,7 +7,7 @@ FactoryBot.define do
     end
 
     trait :note do
-      association :entity, factory: :note
+      entity factory: [:note]
     end
 
     # For followings, create them manually for now.
