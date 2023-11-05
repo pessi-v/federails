@@ -1,10 +1,10 @@
 require 'rails_helper'
 require 'fediverse/notifier'
 
-FakeEntity = Struct.new :federated_url
-FakeActivity = Struct.new :id, :actor, :recipients, :action, :entity, keyword_init: true
-
 module Fediverse
+  FakeEntity = Struct.new :federated_url
+  FakeActivity = Struct.new :id, :actor, :recipients, :action, :entity, keyword_init: true
+
   RSpec.describe Notifier do
     let(:local_actor) { FactoryBot.create(:user).actor }
     let(:distant_target_actor) { FactoryBot.create :actor, :distant }
