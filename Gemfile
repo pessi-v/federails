@@ -23,6 +23,7 @@ gem 'database_cleaner'
 gem 'factory_bot_rails'
 gem 'faker'
 gem 'rspec-rails'
+gem 'rspec-rfc-helper'
 gem 'vcr'
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
