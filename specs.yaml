@@ -1,0 +1,899 @@
+---
+name: ActivityPub RFC
+url: https://www.w3.org/TR/activitypub/
+specs:
+- section: '1'
+  id: overview
+  title: Overview
+  url: https://www.w3.org/TR/activitypub/#Overview
+  specs: []
+- section: '1.1'
+  id: social_web_working_group
+  title: Social Web Working Group
+  url: https://www.w3.org/TR/activitypub/#social-web-working-group
+  specs: []
+- section: '2'
+  id: conformance
+  title: Conformance
+  url: https://www.w3.org/TR/activitypub/#conformance
+  specs: []
+- section: '2.1'
+  id: specification_profiles
+  title: Specification Profiles
+  url: https://www.w3.org/TR/activitypub/#specification-profiles
+  specs: []
+- section: '3'
+  id: objects
+  title: Objects
+  url: https://www.w3.org/TR/activitypub/#obj
+  specs:
+  - id: :include_activitypub_context
+    text: |
+      ActivityPub defines some terms in addition to those provided by ActivityStreams.
+      These terms are provided in the ActivityPub JSON-LD context at https://www.w3.org/ns/activitystreams.
+      Implementers [[SHOULD]] include the ActivityPub context in their object definitions.
+      Implementers MAY include additional context as appropriate.
+  - id: :include_additional_context
+    text: |
+      ActivityPub defines some terms in addition to those provided by ActivityStreams.
+      These terms are provided in the ActivityPub JSON-LD context at https://www.w3.org/ns/activitystreams.
+      Implementers SHOULD include the ActivityPub context in their object definitions.
+      Implementers [[MAY]] include additional context as appropriate.
+  - id: :activitypub_share_activitystream_uri
+    text: ActivityPub shares the same URI / IRI conventions as in ActivityStreams.
+  - id: :validate_received_content
+    text: |
+      Servers [[SHOULD]] validate the content they receive to avoid content spoofing attacks.
+      (A server should do something at least as robust as checking that the object appears as received at its origin, but
+      mechanisms such as checking signatures would be better if available). No particular mechanism for verification is
+      authoritatively specified by this document, but please see Security Considerations for
+      some suggestions and good practices.
+- section: '3.1'
+  id: objects__objects_identifiers
+  title: Object Identifiers
+  url: https://www.w3.org/TR/activitypub/#obj-id
+  specs:
+  - id: :unique
+    text: |
+      All Objects in [ActivityStreams] should have unique global identifiers. ActivityPub extends this requirement; all
+      objects distributed by the ActivityPub protocol [[MUST]] have unique global identifiers, unless they are intentionally
+      transient (short lived activities that are not intended to be able to be looked up, such as some kinds of chat
+      messages or game notifications). These identifiers must fall into one of the following groups:
+
+        1. Publicly dereferencable URIs, such as HTTPS URIs, with their authority belonging to that of their originating server. (Publicly facing content SHOULD use HTTPS URIs).
+        2. An ID explicitly specified as the JSON null object, which implies an anonymous object (a part of its parent context)
+  - id: :use_https
+    text: |
+      All Objects in [ActivityStreams] should have unique global identifiers. ActivityPub extends this requirement; all
+      objects distributed by the ActivityPub protocol MUST have unique global identifiers, unless they are intentionally
+      transient (short lived activities that are not intended to be able to be looked up, such as some kinds of chat
+      messages or game notifications). These identifiers must fall into one of the following groups:
+
+        1. Publicly dereferencable URIs, such as HTTPS URIs, with their authority belonging to that of their originating server. (Publicly facing content [[SHOULD]] use HTTPS URIs).
+        2. An ID explicitly specified as the JSON null object, which implies an anonymous object (a part of its parent context)
+  - id: :provided_for_activities
+    text: |
+      Identifiers [[MUST]] be provided for activities posted in server to server communication, unless the activity is
+      intentionally transient. However, for client to server communication, a server receiving an object posted to the
+      outbox with no specified id SHOULD allocate an object ID in the actor's namespace and attach it to the posted object.
+  - id: :allocate_id
+    text: |
+      Identifiers MUST be provided for activities posted in server to server communication, unless the activity is
+      intentionally transient. However, for client to server communication, a server receiving an object posted to the
+      outbox with no specified id [[SHOULD]] allocate an object ID in the actor's namespace and attach it to the posted object.
+  - id: :omit_id
+    text: |
+      All objects have the following properties:
+
+      id
+        The object's unique global identifier (unless the object is transient, in which case the id [[MAY]] be omitted).
+      type
+        The type of the object.
+- section: '3.2'
+  id: objects__retrieving_objects
+  title: Retrieving objects
+  url: https://www.w3.org/TR/activitypub/#retrieving-objects
+  specs:
+  - id: :use_content_negociation
+    text: |
+      The HTTP GET method may be dereferenced against an object's id property to retrieve the activity. Servers [[MAY]] use HTTP
+      content negotiation as defined in [RFC7231] to select the type of data to return in response to a request, but MUST
+      present the ActivityStreams object representation in response to application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams", and SHOULD also present the ActivityStreams representation in
+      response to application/activity+json as well. The client MUST specify an Accept header with the application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams" media type in order to retrieve the activity.
+  - id: :present_object_representation
+    text: |
+      The HTTP GET method may be dereferenced against an object's id property to retrieve the activity. Servers MAY use HTTP
+      content negotiation as defined in [RFC7231] to select the type of data to return in response to a request, but [[MUST]]
+      present the ActivityStreams object representation in response to application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams", and SHOULD also present the ActivityStreams representation in
+      response to application/activity+json as well. The client MUST specify an Accept header with the application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams" media type in order to retrieve the activity.
+  - id: :present_as_activity_json
+    text: |
+      The HTTP GET method may be dereferenced against an object's id property to retrieve the activity. Servers MAY use HTTP
+      content negotiation as defined in [RFC7231] to select the type of data to return in response to a request, but MUST
+      present the ActivityStreams object representation in response to application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams", and [[SHOULD]] also present the ActivityStreams representation in
+      response to application/activity+json as well. The client MUST specify an Accept header with the application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams" media type in order to retrieve the activity.
+  - id:
+    text: |
+      The HTTP GET method may be dereferenced against an object's id property to retrieve the activity. Servers MAY use HTTP
+      content negotiation as defined in [RFC7231] to select the type of data to return in response to a request, but MUST
+      present the ActivityStreams object representation in response to application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams", and SHOULD also present the ActivityStreams representation in
+      response to application/activity+json as well. The client [[MUST]] specify an Accept header with the application/ld+json;
+      profile="https://www.w3.org/ns/activitystreams" media type in order to retrieve the activity.
+  - id:
+    text: |
+      Servers [[MAY]] implement other behavior for requests which do not comply with the above requirement. (For example,
+      servers may implement additional legacy protocols, or may use the same URI for both HTML and ActivityStreams
+      representations of a resource).
+  - id:
+    text: |
+      Servers [[MAY]] require authorization as specified in B.1 Authentication and Authorization, and may additionally implement
+      their own authorization rules. Servers SHOULD fail requests which do not pass their authorization checks with the
+      appropriate HTTP error code, or the 403 Forbidden error code where the existence of the object is considered private.
+      An origin server which does not wish to disclose the existence of a private target MAY instead respond with a status
+      code of 404 Not Found.
+  - id:
+    text: |
+      Servers MAY require authorization as specified in B.1 Authentication and Authorization, and may additionally implement
+      their own authorization rules. Servers [[SHOULD]] fail requests which do not pass their authorization checks with the
+      appropriate HTTP error code, or the 403 Forbidden error code where the existence of the object is considered private.
+      An origin server which does not wish to disclose the existence of a private target MAY instead respond with a status
+      code of 404 Not Found.
+  - id:
+    text: |
+      Servers MAY require authorization as specified in B.1 Authentication and Authorization, and may additionally implement
+      their own authorization rules. Servers SHOULD fail requests which do not pass their authorization checks with the
+      appropriate HTTP error code, or the 403 Forbidden error code where the existence of the object is considered private.
+      An origin server which does not wish to disclose the existence of a private target [[MAY]] instead respond with a status
+      code of 404 Not Found.
+- section: '3.3'
+  id: objects__source_property
+  title: The source property
+  url: https://www.w3.org/TR/activitypub/#source-property
+  specs: []
+- section: '4'
+  id: actors
+  title: Actors
+  url: https://www.w3.org/TR/activitypub/#actors
+  specs:
+  - id:
+    text: |
+      ActivityPub actors are generally one of the ActivityStreams Actor Types, but they don't have to be. For example, a
+      Profile object might be used as an actor, or a type from an ActivityStreams extension. Actors are retrieved like any
+      other Object in ActivityPub. Like other ActivityStreams objects, actors have an id, which is a URI. When entered
+      directly into a user interface (for example on a login form), it is desirable to support simplified naming. For this
+      purpose, ID normalization [[SHOULD]] be performed as follows:
+
+        1. If the entered ID is a valid URI, then it is to be used directly.
+        2. If it appears that the user neglected to add a scheme for a URI that would otherwise be considered valid, such as
+           example.org/alice/, clients MAY attempt to provide a default scheme, preferably https.
+        3. Otherwise, the entered value should be considered invalid.
+  - id:
+    text: |
+      ActivityPub actors are generally one of the ActivityStreams Actor Types, but they don't have to be. For example, a
+      Profile object might be used as an actor, or a type from an ActivityStreams extension. Actors are retrieved like any
+      other Object in ActivityPub. Like other ActivityStreams objects, actors have an id, which is a URI. When entered
+      directly into a user interface (for example on a login form), it is desirable to support simplified naming. For this
+      purpose, ID normalization SHOULD be performed as follows:
+
+        1. If the entered ID is a valid URI, then it is to be used directly.
+        2. If it appears that the user neglected to add a scheme for a URI that would otherwise be considered valid, such as
+           example.org/alice/, clients [[MAY]] attempt to provide a default scheme, preferably https.
+        3. Otherwise, the entered value should be considered invalid.
+- section: '4.1'
+  id: actors__actor_objects
+  title: Actor objects
+  url: https://www.w3.org/TR/activitypub/#actor-objects
+  specs:
+  - id:
+    text: |
+      Actor objects [[MUST]] have, in addition to the properties mandated by 3.1 Object Identifiers, the following properties:
+
+        inbox
+          A reference to an [ActivityStreams] OrderedCollection comprised of all the messages received by the actor; see 5.2 Inbox.
+        outbox
+          An [ActivityStreams] OrderedCollection comprised of all the messages produced by the actor; see 5.1 Outbox.
+  - id:
+    text: |
+      Implementations [[SHOULD]], in addition, provide the following properties:
+
+        following
+          A link to an [ActivityStreams] collection of the actors that this actor is following; see 5.4 Following Collection
+        followers
+          A link to an [ActivityStreams] collection of the actors that follow this actor; see 5.3 Followers Collection.
+  - id:
+    text: |
+      Implementations [[MAY]] provide the following properties:
+
+        liked
+          A link to an [ActivityStreams] collection of objects this actor has liked; see 5.5 Liked Collection.
+  - id:
+    text: |
+      Implementations [[MAY]], in addition, provide the following properties:
+
+        streams
+          A list of supplementary Collections which may be of interest.
+        preferredUsername
+          A short username which may be used to refer to the actor, with no uniqueness guarantees.
+        endpoints
+          A json object which maps additional (typically server/domain-wide) endpoints which may be useful either for this
+          actor or someone referencing this actor. This mapping may be nested inside the actor document as the value or may
+          be a link to a JSON-LD document with these properties.
+  - id:
+    text: |
+      The endpoints mapping [[MAY]] include the following properties:
+
+        proxyUrl
+          Endpoint URI so this actor's clients may access remote ActivityStreams objects which require authentication to
+          access. To use this endpoint, the client posts an x-www-form-urlencoded id parameter with the value being the id
+          of the requested ActivityStreams object.
+        oauthAuthorizationEndpoint
+          If OAuth 2.0 bearer tokens [RFC6749] [RFC6750] are being used for authenticating client to server interactions,
+          this endpoint specifies a URI at which a browser-authenticated user may obtain a new authorization grant.
+        oauthTokenEndpoint
+          If OAuth 2.0 bearer tokens [RFC6749] [RFC6750] are being used for authenticating client to server interactions,
+          this endpoint specifies a URI at which a client may acquire an access token.
+        provideClientKey
+          If Linked Data Signatures and HTTP Signatures are being used for authentication and authorization, this endpoint
+          specifies a URI at which browser-authenticated users may authorize a client's public key for client to server
+          interactions.
+        signClientKey
+          If Linked Data Signatures and HTTP Signatures are being used for authentication and authorization, this endpoint
+          specifies a URI at which a client key may be signed by the actor's key for a time window to act on behalf of the
+          actor in interacting with foreign servers.
+        sharedInbox
+          An optional endpoint used for wide delivery of publicly addressed activities and activities sent to followers.
+          sharedInbox endpoints SHOULD also be publicly readable OrderedCollection objects containing objects addressed to
+          the Public special collection. Reading from the sharedInbox endpoint MUST NOT present objects which are not addressed to the Public endpoint.
+  - id:
+    text: |
+      sharedInbox
+        An optional endpoint used for wide delivery of publicly addressed activities and activities sent to followers.
+        sharedInbox endpoints [[SHOULD]] also be publicly readable OrderedCollection objects containing objects addressed to
+        the Public special collection. Reading from the sharedInbox endpoint MUST NOT present objects which are not
+        addressed to the Public endpoint.
+  - id:
+    text: |
+      sharedInbox
+        An optional endpoint used for wide delivery of publicly addressed activities and activities sent to followers.
+        sharedInbox endpoints SHOULD also be publicly readable OrderedCollection objects containing objects addressed to
+        the Public special collection. Reading from the sharedInbox endpoint [[MUST NOT]] present objects which are not
+        addressed to the Public endpoint.
+- section: '5'
+  id: collections
+  title: Collections
+  url: https://www.w3.org/TR/activitypub/#collections
+  specs:
+  - id:
+    text: |
+      An OrderedCollection [[MUST]] be presented consistently in reverse chronological order
+- section: '5.1'
+  id: collections__outbox
+  title: Outbox
+  url: https://www.w3.org/TR/activitypub/#outbox
+  specs:
+  - id:
+    text: |
+      The outbox is discovered through the outbox property of an actor's profile.
+      The outbox [[MUST]] be an OrderedCollection.
+- section: '5.2'
+  id: collections__inbox
+  title: Inbox
+  url: https://www.w3.org/TR/activitypub/#inbox
+  specs:
+  - id:
+    text: |
+      The inbox is discovered through the inbox property of an actor's profile.
+      The inbox [[MUST]] be an OrderedCollection.
+  - id:
+    text: |
+      The inbox stream contains all activities received by the actor. The server [[SHOULD]] filter content according to the
+      requester's permission. In general, the owner of an inbox is likely to be able to access all of their inbox contents.
+      Depending on access control, some other content may be public, whereas other content may require authentication for
+      non-owner users, if they can access the inbox at all.
+  - id:
+    text: |
+      The server [[MUST]] perform de-duplication of activities returned by the inbox. Duplication can occur if an activity is
+      addressed both to an actor's followers, and a specific actor who also follows the recipient actor, and the server has
+      failed to de-duplicate the recipients list. Such deduplication MUST be performed by comparing the id of the activities
+      and dropping any activities already seen.
+  - id:
+    text: |
+      The server MUST perform de-duplication of activities returned by the inbox. Duplication can occur if an activity is
+      addressed both to an actor's followers, and a specific actor who also follows the recipient actor, and the server has
+      failed to de-duplicate the recipients list. Such deduplication [[MUST]] be performed by comparing the id of the activities
+      and dropping any activities already seen.
+  - id:
+    text: |
+      The inboxes of actors on federated servers accepts HTTP POST requests, with behaviour described in Delivery.
+      Non-federated servers [[SHOULD]] return a 405 Method Not Allowed upon receipt of a POST request.
+- section: '5.3'
+  id: collections__followers
+  title: Followers Collection
+  url: https://www.w3.org/TR/activitypub/#followers
+  specs:
+  - id:
+    text: |
+      Every actor [[SHOULD]] have a followers collection. This is a list of everyone who has sent a Follow activity for the
+      actor, added as a side effect. This is where one would find a list of all the actors that are following the actor.
+      The followers collection MUST be either an OrderedCollection or a Collection and MAY be filtered on privileges of an
+      authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every actor SHOULD have a followers collection. This is a list of everyone who has sent a Follow activity for the
+      actor, added as a side effect. This is where one would find a list of all the actors that are following the actor.
+      The followers collection [[MUST]] be either an OrderedCollection or a Collection and MAY be filtered on privileges of an
+      authenticated user or as appropriate when no authentication is given.
+- section: '5.4'
+  id: collections__following
+  title: Following Collection
+  url: https://www.w3.org/TR/activitypub/#following
+  specs:
+  - id:
+    text: |
+      Every actor [[SHOULD]] have a following collection. This is a list of everybody that the actor has followed, added as a
+      side effect. The following collection MUST be either an OrderedCollection or a Collection and MAY be filtered on
+      privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every actor SHOULD have a following collection. This is a list of everybody that the actor has followed, added as a
+      side effect. The following collection [[MUST]] be either an OrderedCollection or a Collection and MAY be filtered on
+      privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every actor SHOULD have a following collection. This is a list of everybody that the actor has followed, added as a
+      side effect. The following collection MUST be either an OrderedCollection or a Collection and [[MAY]] be filtered on
+      privileges of an authenticated user or as appropriate when no authentication is given.
+- section: '5.5'
+  id: collections__liked
+  title: Liked Collection
+  url: https://www.w3.org/TR/activitypub/#liked
+  specs:
+  - id:
+    text: |
+      Every actor [[MAY]] have a liked collection. This is a list of every object from all of the actor's Like activities,
+      added as a side effect. The liked collection MUST be either an OrderedCollection or a Collection and MAY be filtered
+      on privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every actor MAY have a liked collection. This is a list of every object from all of the actor's Like activities,
+      added as a side effect. The liked collection [[MUST]] be either an OrderedCollection or a Collection and MAY be filtered
+      on privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every actor MAY have a liked collection. This is a list of every object from all of the actor's Like activities,
+      added as a side effect. The liked collection MUST be either an OrderedCollection or a Collection and [[MAY]] be filtered
+      on privileges of an authenticated user or as appropriate when no authentication is given.
+- section: '5.6'
+  id: collections__public_addressing
+  title: Public Addressing
+  url: https://www.w3.org/TR/activitypub/#public-addressing
+  specs:
+  - id:
+    text: |
+      Activities addressed to this special URI shall be accessible to all users, without authentication.
+  - id:
+    text: |
+      Implementations [[MUST NOT]] deliver to the "public" special collection; it is not capable of receiving actual
+      activities. However, actors MAY have a sharedInbox endpoint which is available for efficient shared delivery of
+      public posts (as well as posts to followers-only); see 7.1.3 Shared Inbox Delivery.
+  - id:
+    text: |
+      Implementations MUST NOT deliver to the "public" special collection; it is not capable of receiving actual
+      activities. However, actors [[MAY]] have a sharedInbox endpoint which is available for efficient shared delivery of
+      public posts (as well as posts to followers-only); see 7.1.3 Shared Inbox Delivery.
+- section: '5.7'
+  id: collections__likes
+  title: Likes Collection
+  url: https://www.w3.org/TR/activitypub/#likes
+  specs:
+  - id:
+    text: |
+      Every object [[MAY]] have a likes collection. This is a list of all Like activities with this object as the object
+      property, added as a side effect. The likes collection MUST be either an OrderedCollection or a Collection and MAY
+      be filtered on privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every object MAY have a likes collection. This is a list of all Like activities with this object as the object
+      property, added as a side effect. The likes collection [[MUST]] be either an OrderedCollection or a Collection and MAY
+      be filtered on privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every object MAY have a likes collection. This is a list of all Like activities with this object as the object
+      property, added as a side effect. The likes collection MUST be either an OrderedCollection or a Collection and [[MAY]]
+      be filtered on privileges of an authenticated user or as appropriate when no authentication is given.
+- section: '5.8'
+  id: collections__shares
+  title: Shares Collection
+  url: https://www.w3.org/TR/activitypub/#shares
+  specs:
+  - id:
+    text: |
+      Every object [[MAY]] have a shares collection. This is a list of all Announce activities with this object as the object
+      property, added as a side effect. The shares collection MUST be either an OrderedCollection or a Collection and MAY
+      be filtered on privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every object MAY have a shares collection. This is a list of all Announce activities with this object as the object
+      property, added as a side effect. The shares collection [[MUST]] be either an OrderedCollection or a Collection and MAY
+      be filtered on privileges of an authenticated user or as appropriate when no authentication is given.
+  - id:
+    text: |
+      Every object MAY have a shares collection. This is a list of all Announce activities with this object as the object
+      property, added as a side effect. The shares collection MUST be either an OrderedCollection or a Collection and [[MAY]]
+      be filtered on privileges of an authenticated user or as appropriate when no authentication is given.
+- section: '6'
+  id: c2s
+  title: Client to Server Interactions
+  url: https://www.w3.org/TR/activitypub/#client-to-server-interactions
+  specs: []
+- section: '6.1'
+  id: c2s__client_addressing
+  title: Client Addressing
+  url: https://www.w3.org/TR/activitypub/#client-addressing
+  specs: []
+- section: '6.2'
+  id: c2s__create_activity
+  title: Create Activity
+  url: https://www.w3.org/TR/activitypub/#create-activity-outbox
+  specs: []
+- section: 6.2.1
+  id: c2s__object_without_activity
+  title: Object creation without a Create Activity
+  url: https://www.w3.org/TR/activitypub/#object-without-create
+  specs: []
+- section: '6.3'
+  id: c2s__update_activity
+  title: Update Activity
+  url: https://www.w3.org/TR/activitypub/#update-activity-outbox
+  specs: []
+- section: 6.3.1
+  id: c2s__partial_updates
+  title: Partial Updates
+  url: https://www.w3.org/TR/activitypub/#partial-updates
+  specs: []
+- section: '6.4'
+  id: c2s__delete_activity
+  title: Delete Activity
+  url: https://www.w3.org/TR/activitypub/#delete-activity-outbox
+  specs: []
+- section: '6.5'
+  id: c2s__follow_activity
+  title: Follow Activity
+  url: https://www.w3.org/TR/activitypub/#follow-activity-outbox
+  specs: []
+- section: '6.6'
+  id: c2s__add_activity
+  title: Add Activity
+  url: https://www.w3.org/TR/activitypub/#add-activity-outbox
+  specs: []
+- section: '6.7'
+  id: c2s__remove_activity
+  title: Remove Activity
+  url: https://www.w3.org/TR/activitypub/#remove-activity-outbox
+  specs: []
+- section: '6.8'
+  id: c2s__like_activity
+  title: Like Activity
+  url: https://www.w3.org/TR/activitypub/#like-activity-outbox
+  specs: []
+- section: '6.9'
+  id: c2s__block_activity
+  title: Block Activity
+  url: https://www.w3.org/TR/activitypub/#block-activity-outbox
+  specs: []
+- section: '6.10'
+  id: c2s__undo_activity
+  title: Undo Activity
+  url: https://www.w3.org/TR/activitypub/#undo-activity-outbox
+  specs: []
+- section: '6.11'
+  id: c2s__delivery
+  title: Delivery
+  url: https://www.w3.org/TR/activitypub/#client-to-server-outbox-delivery
+  specs: []
+- section: '6.12'
+  id: c2s__media_upload
+  title: Uploading Media
+  url: https://www.w3.org/TR/activitypub/#uploading-media
+  specs: []
+- section: '7'
+  id: s2s
+  title: Server to Server Interactions
+  url: https://www.w3.org/TR/activitypub/#server-to-server-interactions
+  specs:
+  - id:
+    text: |
+      An Activity sent over the network [[SHOULD]] have an id, unless it is intended to be transient (in which case it MAY
+      omit the id).
+  - id:
+    text: |
+      An Activity sent over the network SHOULD have an id, unless it is intended to be transient (in which case it [[MAY]]
+      omit the id).
+  - id:
+    text: |
+      POST requests (eg. to the inbox) [[MUST]] be made with a Content-Type of
+      application/ld+json; profile="https://www.w3.org/ns/activitystreams" and GET requests (see also 3.2 Retrieving objects)
+      with an Accept header of application/ld+json; profile="https://www.w3.org/ns/activitystreams".
+  - id:
+    text: |
+      Servers [[SHOULD]] interpret a Content-Type or Accept header of application/activity+json as equivalent to
+      application/ld+json; profile="https://www.w3.org/ns/activitystreams" for server-to-server interactions.
+  - id:
+    text: |
+      Servers performing delivery to the inbox or sharedInbox properties of actors on other servers [[MUST]] provide the object
+      property in the activity: Create, Update, Delete, Follow, Add, Remove, Like, Block, Undo. Additionally, servers
+      performing server to server delivery of the following activities MUST also provide the target property: Add, Remove.
+  - id:
+    text: |
+      Servers performing delivery to the inbox or sharedInbox properties of actors on other servers MUST provide the object
+      property in the activity: Create, Update, Delete, Follow, Add, Remove, Like, Block, Undo. Additionally, servers
+      performing server to server delivery of the following activities [[MUST]] also provide the target property: Add, Remove.
+  - id:
+    text: |
+      HTTP caching mechanisms [RFC7234] [[SHOULD]] be respected when appropriate, both when receiving responses from other
+      servers as well as sending responses to other servers.
+- section: '7.1'
+  id: s2s_delivery
+  title: Delivery
+  url: https://www.w3.org/TR/activitypub/#delivery
+  specs:
+  - id:
+    text: |
+      If a recipient is a Collection or OrderedCollection, then the server [[MUST]] dereference the collection (with the user's
+      credentials) and discover inboxes for each item in the collection.
+  - id:
+    text: |
+      Servers [[MUST]] limit the number of layers of indirections through collections
+      which will be performed, which MAY be one.
+  - id:
+    text: |
+      Servers MUST limit the number of layers of indirections through collections
+      which will be performed, which [[MAY]] be one.
+  - id:
+    text: Servers [[MUST]] de-duplicate the final recipient list.
+  - id:
+    text: |
+      Servers [[MUST]] also exclude actors from the list which are the same as the actor of the Activity being notified about.
+      That is, actors shouldn't have their own activities delivered to themselves.
+  - id:
+    text: |
+      Attempts to deliver to an inbox on a non-federated server SHOULD result
+      in a 405 Method Not Allowed response.
+  - id:
+    text: |
+      For federated servers performing delivery to a third party server, delivery [[SHOULD]] be performed asynchronously,
+      and SHOULD additionally retry delivery to recipients if it fails due to network error.
+  - id:
+    text: |
+      For federated servers performing delivery to a third party server, delivery SHOULD be performed asynchronously,
+      and [[SHOULD]] additionally retry delivery to recipients if it fails due to network error.
+- section: 7.1.1
+  id: s2s_outbox_requirement
+  title: Outbox Delivery Requirements for Server to Server
+  url: https://www.w3.org/TR/activitypub/#outbox-delivery
+  specs:
+  - id:
+    text: |+
+      When objects are received in the outbox (for servers which support both Client to Server interactions and Server to
+      Server Interactions), the server [[MUST]] target and deliver to:
+
+        The to, bto, cc, bcc or audience fields if their values are individuals or Collections owned by the actor.
+
+- section: 7.1.2
+  id: s2s_forwarding_inbox
+  title: Forwarding from Inbox
+  url: https://www.w3.org/TR/activitypub/#inbox-forwarding
+  specs:
+  - id:
+    text: |
+      When Activities are received in the inbox, the server needs to forward these to recipients that the origin was unable
+      to deliver them to. To do this, the server [[MUST]] target and deliver to the values of to, cc, and/or audience if and
+      only if all of the following are true:
+
+        This is the first time the server has seen this Activity.
+        The values of to, cc, and/or audience contain a Collection owned by the server.
+        The values of inReplyTo, object, target and/or tag are objects owned by the server. The server SHOULD recurse
+          through these values to look for linked objects owned by the server, and SHOULD set a maximum limit for recursion
+          (ie. the point at which the thread is so deep the recipients followers may not mind if they are no longer getting
+          updates that don't directly involve the recipient). The server MUST only target the values of to, cc, and/or
+          audience on the original object being forwarded, and not pick up any new addressees whilst recursing through the
+          linked objects (in case these addressees were purposefully amended by or via the client).
+
+      The server MAY filter its delivery targets according to implementation-specific rules (for example, spam filtering).
+  - id:
+    text: |
+      When Activities are received in the inbox, the server needs to forward these to recipients that the origin was unable
+      to deliver them to. To do this, the server MUST target and deliver to the values of to, cc, and/or audience if and
+      only if all of the following are true:
+
+        This is the first time the server has seen this Activity.
+        The values of to, cc, and/or audience contain a Collection owned by the server.
+        The values of inReplyTo, object, target and/or tag are objects owned by the server. The server [[SHOULD]] recurse
+          through these values to look for linked objects owned by the server, and SHOULD set a maximum limit for recursion
+          (ie. the point at which the thread is so deep the recipients followers may not mind if they are no longer getting
+          updates that don't directly involve the recipient). The server MUST only target the values of to, cc, and/or
+          audience on the original object being forwarded, and not pick up any new addressees whilst recursing through the
+          linked objects (in case these addressees were purposefully amended by or via the client).
+
+      The server MAY filter its delivery targets according to implementation-specific rules (for example, spam filtering).
+  - id:
+    text: |
+      When Activities are received in the inbox, the server needs to forward these to recipients that the origin was unable
+      to deliver them to. To do this, the server MUST target and deliver to the values of to, cc, and/or audience if and
+      only if all of the following are true:
+
+        This is the first time the server has seen this Activity.
+        The values of to, cc, and/or audience contain a Collection owned by the server.
+        The values of inReplyTo, object, target and/or tag are objects owned by the server. The server SHOULD recurse
+          through these values to look for linked objects owned by the server, and [[SHOULD]] set a maximum limit for recursion
+          (ie. the point at which the thread is so deep the recipients followers may not mind if they are no longer getting
+          updates that don't directly involve the recipient). The server MUST only target the values of to, cc, and/or
+          audience on the original object being forwarded, and not pick up any new addressees whilst recursing through the
+          linked objects (in case these addressees were purposefully amended by or via the client).
+
+      The server MAY filter its delivery targets according to implementation-specific rules (for example, spam filtering).
+  - id:
+    text: |
+      When Activities are received in the inbox, the server needs to forward these to recipients that the origin was unable
+      to deliver them to. To do this, the server MUST target and deliver to the values of to, cc, and/or audience if and
+      only if all of the following are true:
+
+        This is the first time the server has seen this Activity.
+        The values of to, cc, and/or audience contain a Collection owned by the server.
+        The values of inReplyTo, object, target and/or tag are objects owned by the server. The server SHOULD recurse
+          through these values to look for linked objects owned by the server, and SHOULD set a maximum limit for recursion
+          (ie. the point at which the thread is so deep the recipients followers may not mind if they are no longer getting
+          updates that don't directly involve the recipient). The server [[MUST]] only target the values of to, cc, and/or
+          audience on the original object being forwarded, and not pick up any new addressees whilst recursing through the
+          linked objects (in case these addressees were purposefully amended by or via the client).
+
+      The server MAY filter its delivery targets according to implementation-specific rules (for example, spam filtering).
+  - id:
+    text: |
+      When Activities are received in the inbox, the server needs to forward these to recipients that the origin was unable
+      to deliver them to. To do this, the server MUST target and deliver to the values of to, cc, and/or audience if and
+      only if all of the following are true:
+
+        This is the first time the server has seen this Activity.
+        The values of to, cc, and/or audience contain a Collection owned by the server.
+        The values of inReplyTo, object, target and/or tag are objects owned by the server. The server SHOULD recurse
+          through these values to look for linked objects owned by the server, and SHOULD set a maximum limit for recursion
+          (ie. the point at which the thread is so deep the recipients followers may not mind if they are no longer getting
+          updates that don't directly involve the recipient). The server MUST only target the values of to, cc, and/or
+          audience on the original object being forwarded, and not pick up any new addressees whilst recursing through the
+          linked objects (in case these addressees were purposefully amended by or via the client).
+
+      The server [[MAY]] filter its delivery targets according to implementation-specific rules (for example, spam filtering).
+- section: 7.1.3
+  id: s2s_shared_inbox_delivery
+  title: Shared Inbox Delivery
+  url: https://www.w3.org/TR/activitypub/#shared-inbox-delivery
+  specs:
+  - id:
+    text: |
+      When an object is being delivered to the originating actor's followers, a server [[MAY]] reduce the number of receiving
+      actors delivered to by identifying all followers which share the same sharedInbox who would otherwise be individual
+      recipients and instead deliver objects to said sharedInbox.
+  - id:
+    text: |
+      Additionally, if an object is addressed to the Public special collection, a server [[MAY]] deliver that object to all
+      known sharedInbox endpoints on the network.
+  - id:
+    text: |
+      Origin servers sending publicly addressed activities to sharedInbox endpoints [[MUST]] still deliver to actors and
+      collections otherwise addressed (through to, bto, cc, bcc, and audience) which do not have a sharedInbox and would
+      not otherwise receive the activity through the sharedInbox mechanism.
+- section: '7.2'
+  id: s2s_create_activity
+  title: Create Activity
+  url: https://www.w3.org/TR/activitypub/#create-activity-inbox
+  specs: []
+- section: '7.3'
+  id: s2s_update_activity
+  title: Update Activity
+  url: https://www.w3.org/TR/activitypub/#update-activity-inbox
+  specs:
+  - id:
+    text: |
+      For server to server interactions, an Update activity means that the receiving server [[SHOULD]] update its copy of the
+      object of the same id to the copy supplied in the Update activity. Unlike the client to server handling of the Update
+      activity, this is not a partial update but a complete replacement of the object.
+  - id:
+    text: |
+      The receiving server [[MUST]] take care to be sure that the Update is authorized to modify its object. At minimum, this
+      may be done by ensuring that the Update and its object are of same origin.
+- section: '7.4'
+  id: s2s_delete_activity
+  title: Delete Activity
+  url: https://www.w3.org/TR/activitypub/#delete-activity-inbox
+  specs:
+  - id:
+    text: |
+      The side effect of receiving this is that (assuming the object is owned by the sending actor / server) the server
+      receiving the delete activity [[SHOULD]] remove its representation of the object with the same id, and MAY replace that
+      representation with a Tombstone object.
+- section: '7.5'
+  id: s2s_follow_activity
+  title: Follow Activity
+  url: https://www.w3.org/TR/activitypub/#follow-activity-inbox
+  specs:
+  - id:
+    text: |
+      The side effect of receiving this in an inbox is that the server [[SHOULD]] generate either an Accept or Reject activity
+      with the Follow as the object and deliver it to the actor of the Follow.
+  - id:
+    text: |
+      The Accept or Reject [[MAY]] be generated automatically, or MAY be the result of user input (possibly after some
+      delay in which the user reviews).
+  - id:
+    text: |
+      The Accept or Reject MAY be generated automatically, or [[MAY]] be the result of user input (possibly after some
+      delay in which the user reviews).
+  - id:
+    text: |
+      Servers [[MAY]] choose to not explicitly send a Reject in response to a Follow, though implementors ought to be aware
+      that the server sending the request could be left in an intermediate state. For example, a server might not send a
+      Reject to protect a user's privacy.
+  - id:
+    text: |
+      In the case of receiving an Accept referencing this Follow as the object, the server [[SHOULD]] add the actor to the
+      object actor's Followers Collection.
+  - id:
+    text: |
+      In the case of a Reject, the server [[MUST NOT]] add the actor to the object
+      actor''s Followers Collection.
+- section: '7.6'
+  id: s2s_accept_activity
+  title: Accept Activity
+  url: https://www.w3.org/TR/activitypub/#accept-activity-inbox
+  specs:
+  - id:
+    text: |
+      If the object of an Accept received to an inbox is a Follow activity previously sent by the receiver, the server
+      [[SHOULD]] add the actor to the receiver's Following Collection.
+- section: '7.7'
+  id: s2s_reject_activity
+  title: Reject Activity
+  url: https://www.w3.org/TR/activitypub/#reject-activity-inbox
+  specs:
+  - id:
+    text: |
+      If the object of a Reject received to an inbox is a Follow activity previously sent by the receiver, this means the
+      recipient did not approve the Follow request. The server [[MUST NOT]] add the actor to the receiver's Following
+      Collection.
+- section: '7.8'
+  id: s2s_add_activity
+  title: Add Activity
+  url: https://www.w3.org/TR/activitypub/#add-activity-inbox
+  specs:
+  - id:
+    text: |
+      Upon receipt of a Remove activity into the inbox, the server [[SHOULD]] remove the object from the collection
+      specified in the target property, unless:
+
+        the target is not owned by the receiving server, and thus they can't update it.
+        the object is not allowed to be removed to the target collection for some other reason, at the receiver's discretion.
+- section: '7.9'
+  id: s2s_remove_activity
+  title: Remove Activity
+  url: https://www.w3.org/TR/activitypub/#remove-activity-inbox
+  specs: []
+- section: '7.10'
+  id: like_activity
+  title: Like Activity
+  url: https://www.w3.org/TR/activitypub/#like-activity-inbox
+  specs:
+  - id:
+    text: |
+      The side effect of receiving this in an inbox is that the server [[SHOULD]] increment the object's count of likes by
+      adding the received activity to the likes collection if this collection is present.
+- section: '7.11'
+  id: s2s_announce_activity
+  title: Announce Activity (sharing)
+  url: https://www.w3.org/TR/activitypub/#announce-activity-inbox
+  specs:
+  - id:
+    text: |
+      Upon receipt of an Announce activity in an inbox, a server [[SHOULD]] increment the object's count of shares by adding the
+      received activity to the shares collection if this collection is present.
+- section: '7.12'
+  id: s2s_undo_activity
+  title: Undo Activity
+  url: https://www.w3.org/TR/activitypub/#undo-activity-inbox
+  specs: []
+- section: A
+  id: a
+  title: Internationalization
+  url: https://www.w3.org/TR/activitypub/#i18n-concerns
+  specs: []
+- section: B
+  id: b
+  title: Security Considerations
+  url: https://www.w3.org/TR/activitypub/#security-considerations
+  specs: []
+- section: B.1
+  id: b1
+  title: Authentication and Authorization
+  url: https://www.w3.org/TR/activitypub/#authorization
+  specs: []
+- section: B.2
+  id: b2
+  title: Verification
+  url: https://www.w3.org/TR/activitypub/#security-verification
+  specs: []
+- section: B.3
+  id: b3
+  title: Accessing localhost URIs
+  url: https://www.w3.org/TR/activitypub/#security-localhost
+  specs: []
+- section: B.4
+  id: b4
+  title: URI Schemes
+  url: https://www.w3.org/TR/activitypub/#security-uri-schemes
+  specs: []
+- section: B.5
+  id: b5
+  title: Recursive Objects
+  url: https://www.w3.org/TR/activitypub/#security-recursive-objects
+  specs: []
+- section: B.6
+  id: b6
+  title: Spam
+  url: https://www.w3.org/TR/activitypub/#security-spam
+  specs: []
+- section: B.7
+  id: b7
+  title: Federation denial-of-service
+  url: https://www.w3.org/TR/activitypub/#security-federation-dos
+  specs:
+  - id:
+    text: |
+      Servers [[SHOULD]] also take care not to overload servers with submissions, for example by using an exponential
+      backoff strategy.
+- section: B.8
+  id: b8
+  title: Client-to-server ratelimiting
+  url: https://www.w3.org/TR/activitypub/#security-c2s-ratelimiting
+  specs: []
+- section: B.9
+  id: b9
+  title: Client-to-server response denial-of-service
+  url: https://www.w3.org/TR/activitypub/#security-c2s-response-dos
+  specs: []
+- section: B.10
+  id: b10
+  title: Sanitizing Content
+  url: https://www.w3.org/TR/activitypub/#security-sanitizing-content
+  specs: []
+- section: B.11
+  id: b11
+  title: Not displaying bto and bcc properties
+  url: https://www.w3.org/TR/activitypub/#security-not-displaying-bto-bcc
+  specs: []
+- section: C
+  id: c
+  title: Acknowledgements
+  url: https://www.w3.org/TR/activitypub/#acknowledgements
+  specs: []
+- section: D
+  id: d
+  title: References
+  url: https://www.w3.org/TR/activitypub/#references
+  specs: []
+- section: D.1
+  id: d1
+  title: Normative references
+  url: https://www.w3.org/TR/activitypub/#normative-references
+  specs: []
+- section: D.2
+  id: d2
+  title: Informative references
+  url: https://www.w3.org/TR/activitypub/#informative-references
+  specs: []
