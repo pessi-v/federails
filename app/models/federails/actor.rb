@@ -16,8 +16,8 @@ module Federails
     belongs_to :user, class_name: Federails.configuration.user_class, optional: true # rubocop:disable Rails/ReflectionClassName
     # FIXME: Handle this with something like undelete
     has_many :activities, dependent: :destroy
-    has_many :following_followers, class_name: 'Following', foreign_key: :target_actor_id, dependent: :destroy, inverse_of: :target_actor
-    has_many :following_follows, class_name: 'Following', dependent: :destroy, inverse_of: :actor
+    has_many :following_followers, class_name: 'Federails::Following', foreign_key: :target_actor_id, dependent: :destroy, inverse_of: :target_actor
+    has_many :following_follows, class_name: 'Federails::Following', dependent: :destroy, inverse_of: :actor
     has_many :followers, source: :actor, through: :following_followers
     has_many :follows, source: :target_actor, through: :following_follows
 
