@@ -14,9 +14,11 @@ module Federails
     yield @@configuration
   end
 
-  def self.config_from(name)
+  def self.config_from(name) # rubocop:disable Metrics/MethodLength
     config = Rails.application.config_for name
     [
+      :app_name,
+      :app_version,
       :force_ssl,
       :site_host,
       :site_port,

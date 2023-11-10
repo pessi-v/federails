@@ -1,6 +1,12 @@
 module Federails
   # rubocop:disable Style/ClassVars
   module Configuration
+    mattr_accessor :app_name
+    @@app_name = nil
+
+    mattr_accessor :app_version
+    @@app_version = nil
+
     mattr_accessor :force_ssl
     @@force_ssl = nil
 

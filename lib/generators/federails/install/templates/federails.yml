@@ -1,5 +1,7 @@
 ---
 defaults: &defaults
+  app_name:
+  app_version:
   force_ssl: false
   site_host: http://localhost
   site_port: 3000
