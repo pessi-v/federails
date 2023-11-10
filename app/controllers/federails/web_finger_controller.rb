@@ -11,15 +11,6 @@ module Federails
       render content_type: 'application/xrd+xml', formats: [:xml]
     end
 
-    def node_info
-      render formats: [:json]
-    end
-
-    # FIXME: Move this action in another controller; it does not belong to webfinger
-    def show_node_info
-      render formats: [:json]
-    end
-
     # TODO: complete missing endpoints
 
     private
