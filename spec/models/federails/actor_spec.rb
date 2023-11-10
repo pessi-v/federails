@@ -3,10 +3,10 @@ require 'rails_helper'
 module Federails
   # rubocop:disable RSpec/MultipleMemoizedHelpers
   RSpec.describe Actor, type: :model do
-    let(:distant_actor_attributes) { FactoryBot.build(:actor, :distant).attributes }
+    let(:distant_actor_attributes) { FactoryBot.build(:distant_actor).attributes }
     let(:distant_url) { 'https://mamot.fr/users/mtancoigne' }
     let(:distant_account) { 'mtancoigne@mamot.fr' }
-    let(:existing_distant_actor) { FactoryBot.create :actor, :distant, federated_url: distant_url, username: 'mtancoigne', server: 'mamot.fr' }
+    let(:existing_distant_actor) { FactoryBot.create :distant_actor, federated_url: distant_url, username: 'mtancoigne', server: 'mamot.fr' }
     # Cassette which should not be created by any example. Used to test the absence
     # of outgoing requests
     let(:error_cassette) { 'this_should_not_be_here' }

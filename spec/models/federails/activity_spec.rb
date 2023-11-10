@@ -2,8 +2,8 @@ require 'rails_helper'
 
 module Federails
   RSpec.describe Activity, type: :model do
-    let(:actor) { FactoryBot.create(:user).actor }
-    let(:distant_actor) { FactoryBot.create :actor, :distant }
+    let(:actor) { FactoryBot.create :local_actor }
+    let(:distant_actor) { FactoryBot.create :distant_actor }
     let(:following) { FactoryBot.create :following, actor: actor, target_actor: distant_actor }
     let(:distant_following) { FactoryBot.create :following, actor: distant_actor, target_actor: actor }
 

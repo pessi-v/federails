@@ -5,7 +5,7 @@ require 'fediverse/request'
 module Fediverse
   RSpec.describe Inbox do
     let(:actor) { FactoryBot.create(:user).actor }
-    let(:distant_actor) { FactoryBot.create :actor, :distant }
+    let(:distant_actor) { FactoryBot.create :distant_actor }
 
     describe '#handle_create_follow_request' do
       let(:distant_following) do

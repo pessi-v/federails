@@ -7,7 +7,7 @@ module Fediverse
 
   RSpec.describe Notifier do
     let(:local_actor) { FactoryBot.create(:user).actor }
-    let(:distant_target_actor) { FactoryBot.create :actor, :distant }
+    let(:distant_target_actor) { FactoryBot.create :distant_actor }
 
     describe '#post_to_inboxes' do
       context 'when notifying distant actor' do

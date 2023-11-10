@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :following, class: 'Federails::Following' do
-    actor { raise 'Please provide an actor' }
-    target_actor { raise 'Please provide a target actor' }
+    actor factory: [:distant_actor]
+    target_actor factory: [:local_actor]
 
     trait :accepted do
       after :create, &:accept!
