@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2020_07_12_174938) do
+ActiveRecord::Schema[7.1].define(version: 2020_07_12_174938) do
   create_table "federails_activities", force: :cascade do |t|
     t.string "entity_type", null: false
     t.integer "entity_id", null: false
