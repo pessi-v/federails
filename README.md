@@ -62,6 +62,34 @@ end
 
 For now, refer to [the source code](lib/federails/configuration.rb) for the full list of options.
 
+### Routes
+
+Mount the engine on `/`: routes to `/.well-known/*` and `/nodeinfo/*` must be at the root of the site.
+Federails routes are then available under the configured path (`routes_path`):
+
+```rb
+# config/routes.rb
+mount Federails::Engine => '/'
+```
+
+With `routes_path = 'federation'`, routes will be:
+
+```txt
+/.well-known/webfinger(.:format)
+/.well-known/host-meta(.:format)
+/.well-known/nodeinfo(.:format)
+/nodeinfo/2.0(.:format)
+/federation/actors/:id/followers(.:format)
+/federation/actors/:id/following(.:format)
+/federation/actors/:actor_id/outbox(.:format)
+/federation/actors/:actor_id/inbox(.:format)
+/federation/actors/:actor_id/activities/:id(.:format)
+/federation/actors/:actor_id/followings/:id(.:format)
+/federation/actors/:actor_id/notes/:id(.:format)
+/federation/actors/:id(.:format)
+...
+```
+
 ### Migrations
 
 Copy the migrations:
