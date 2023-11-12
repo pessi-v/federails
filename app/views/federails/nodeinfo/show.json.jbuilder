@@ -1,7 +1,7 @@
 json.version '2.0'
 # FIXME: Use configuration values when created
-json.software name:    'co2',
-              version: '0.1'
+json.software name:    Federails::Configuration.app_name,
+              version: Federails::Configuration.app_version
 json.protocols [
   'activitypub',
 ]
@@ -12,8 +12,8 @@ json.services inbound:  [],
 # FIXME: Don't hardcode this
 json.openRegistrations true
 json.usage users: {
-  total:          User.count,
-  activeMonth:    User.where(created_at: ((30.days.ago)...Time.current)).count,
-  activeHalfyear: User.where(created_at: ((180.days.ago)...Time.current)).count,
+  total:          Federails::Configuration.user_model.count,
+  activeMonth:    Federails::Configuration.user_model.where(created_at: ((30.days.ago)...Time.current)).count,
+  activeHalfyear: Federails::Configuration.user_model.where(created_at: ((180.days.ago)...Time.current)).count,
 }
 json.metadata({})
