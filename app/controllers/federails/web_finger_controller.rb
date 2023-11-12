@@ -3,7 +3,9 @@ require 'fediverse/webfinger'
 module Federails
   class WebFingerController < ApplicationController
     def find
-      @user = User.find_by! username: username
+      filter = {}
+      filter[Federails::Configuration.user_username_field] = username
+      @user = Federails::Configuration.user_model.find_by!(filter)
       render formats: [:json]
     end
 
