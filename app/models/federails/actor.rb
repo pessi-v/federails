@@ -38,9 +38,9 @@ module Federails
     end
 
     def name
-      value = local? ? user.send(Federails.configuration.user_name_field).to_s : attributes[:name]
+      value = (user.send(Federails.configuration.user_name_field).to_s if local? && Federails.configuration.user_name_field)
 
-      value || username
+      value || attributes['name'] || username
     end
 
     def server
