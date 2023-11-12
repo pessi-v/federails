@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Federails::FollowingPolicy, type: :policy do
-  let(:user) { FactoryBot.create :user, :confirmed }
-  let(:owner) { FactoryBot.create :user, :confirmed }
-  let(:scope) { Pundit.policy_scope!(nil, [:federation, Following]) }
+  let(:user) { FactoryBot.create :user }
+  let(:owner) { FactoryBot.create :user }
+  let(:scope) { Pundit.policy_scope!(nil, Federails::Following) }
   let(:following) { FactoryBot.create :following, actor: owner.actor, target_actor: user.actor }
 
   permissions '.scope' do
     it 'returns all the followings' do
       following
-      expect(scope.all.count).to eq 1
+      expect(scope.count).to eq 1
     end
   end
 
