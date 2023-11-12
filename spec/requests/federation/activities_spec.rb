@@ -13,19 +13,26 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/federation/activities', type: :request do
+  let(:local_actor) { FactoryBot.create :local_actor }
+  let(:distant_actor) { FactoryBot.create :distant_actor }
+  let(:activity) { FactoryBot.create :following, actor: distant_actor, target_actor: local_actor }
+
   describe 'GET /outbox' do
+    before do
+      activity
+    end
+
     it 'renders a successful response' do
-      note = FactoryBot.create :note
-      get federation_actor_outbox_url(note.actor, format: :json)
+      get federails.actor_outbox_url(local_actor, format: :json)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      FactoryBot.create :note
-      activity = Activity.last
-      get federation_actor_activity_url(activity.actor_id, activity.id, format: :json)
+      FactoryBot.create :following
+      activity = Federails::Activity.last
+      get federails.actor_activity_url(activity.actor_id, activity.id, format: :json)
       expect(response).to be_successful
     end
   end

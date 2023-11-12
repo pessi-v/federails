@@ -13,14 +13,14 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/federation/actors', type: :request do
-  let(:user) { FactoryBot.create :user, :confirmed }
-  let(:other_user) { FactoryBot.create :user, :confirmed }
-  let(:following) { Following.create actor: user.actor, target_actor: other_user.actor }
-  let(:follower) { Following.create actor: other_user.actor, target_actor: user.actor }
+  let(:user) { FactoryBot.create :user }
+  let(:other_user) { FactoryBot.create :user }
+  let(:following) { Federails::Following.create actor: user.actor, target_actor: other_user.actor }
+  let(:follower) { Federails::Following.create actor: other_user.actor, target_actor: user.actor }
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      get federation_actor_url(user.actor, format: :json)
+      get federails.actor_url(user.actor, format: :json)
       expect(response).to be_successful
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe '/federation/actors', type: :request do
   describe 'GET /followers' do
     it 'renders a successful response' do
       follower
-      get followers_federation_actor_url(user.actor, format: :json)
+      get federails.followers_actor_url(user.actor, format: :json)
       expect(response).to be_successful
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe '/federation/actors', type: :request do
   describe 'GET /following' do
     it 'renders a successful response' do
       following
-      get following_federation_actor_url(user.actor, format: :json)
+      get federails.following_actor_url(user.actor, format: :json)
       expect(response).to be_successful
     end
   end
