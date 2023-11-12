@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday_middleware'
   spec.add_dependency 'json-ld', '>= 3.2.0'
   spec.add_dependency 'json-ld-preloaded', '>= 3.2.0'
+  spec.add_dependency 'kaminari', '>= 1.2.0'
   spec.add_dependency 'pundit', '>= 2.3.0'
   spec.add_dependency 'rails', '>= 7.0.4'
 end
