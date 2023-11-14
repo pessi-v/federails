@@ -5,3 +5,6 @@ RSpec.configure do |config|
   config.include RSpec::Rails::Api::DSL::Example
   config.include RSpec::Rails::RequestExampleGroup, type: :acceptance
 end
+
+RSpec::Rails::Api::Metadata.add_entity :empty_object, {}
+RSpec::Rails::Api::Metadata.add_entity :error, { error: { type: :string, description: 'The error' } }
