@@ -25,6 +25,7 @@ gem 'faker'
 gem 'rspec-rails'
 gem 'rspec-rails-api'
 gem 'rspec-rfc-helper'
+gem 'simplecov'
 gem 'vcr'
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
