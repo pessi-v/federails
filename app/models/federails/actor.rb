@@ -28,7 +28,7 @@ module Federails
     end
 
     def federated_url
-      local? ? Federails::Engine.routes.url_helpers.actor_url(self) : attributes['federated_url'].presence
+      local? ? Federails::Engine.routes.url_helpers.server_actor_url(self) : attributes['federated_url'].presence
     end
 
     def username
@@ -48,26 +48,26 @@ module Federails
     end
 
     def inbox_url
-      local? ? Federails::Engine.routes.url_helpers.actor_inbox_url(self) : attributes['inbox_url']
+      local? ? Federails::Engine.routes.url_helpers.server_actor_inbox_url(self) : attributes['inbox_url']
     end
 
     def outbox_url
-      local? ? Federails::Engine.routes.url_helpers.actor_outbox_url(self) : attributes['outbox_url']
+      local? ? Federails::Engine.routes.url_helpers.server_actor_outbox_url(self) : attributes['outbox_url']
     end
 
     def followers_url
-      local? ? Federails::Engine.routes.url_helpers.followers_actor_url(self) : attributes['followers_url']
+      local? ? Federails::Engine.routes.url_helpers.followers_server_actor_url(self) : attributes['followers_url']
     end
 
     def followings_url
-      local? ? Federails::Engine.routes.url_helpers.following_actor_url(self) : attributes['followings_url']
+      local? ? Federails::Engine.routes.url_helpers.following_server_actor_url(self) : attributes['followings_url']
     end
 
     def profile_url
       return attributes['profile_url'].presence unless local?
 
       method = Federails.configuration.user_profile_url_method
-      return Federails::Engine.routes.url_helpers.actor_url self unless method
+      return Federails::Engine.routes.url_helpers.server_actor_url self unless method
 
       Rails.application.routes.send method, user
     end
@@ -103,7 +103,7 @@ module Federails
 
       def find_by_federation_url(federated_url)
         local_route = Utils::Host.local_route federated_url
-        return find local_route[:id] if local_route && local_route[:controller] == 'federails/actors' && local_route[:action] == 'show'
+        return find local_route[:id] if local_route && local_route[:controller] == 'federails/server/actors' && local_route[:action] == 'show'
 
         actor = find_by federated_url: federated_url
         return actor if actor

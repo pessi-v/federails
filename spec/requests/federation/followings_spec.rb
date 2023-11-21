@@ -28,7 +28,7 @@ RSpec.describe '/federation/followings', type: :request do
       actor = FactoryBot.create(:user).actor
       target_actor = FactoryBot.create(:user).actor
       following = FactoryBot.create :following, actor: actor, target_actor: target_actor
-      get federails.actor_following_url(actor, following, format: :json)
+      get federails.server_actor_following_url(actor, following, format: :json)
       expect(response).to be_successful
     end
   end

@@ -23,7 +23,7 @@ RSpec.describe '/federation/activities', type: :request do
     end
 
     it 'renders a successful response' do
-      get federails.actor_outbox_url(local_actor, format: :json)
+      get federails.server_actor_outbox_url(local_actor, format: :json)
       expect(response).to be_successful
     end
   end
@@ -32,7 +32,7 @@ RSpec.describe '/federation/activities', type: :request do
     it 'renders a successful response' do
       FactoryBot.create :following
       activity = Federails::Activity.last
-      get federails.actor_activity_url(activity.actor_id, activity.id, format: :json)
+      get federails.server_actor_activity_url(activity.actor_id, activity.id, format: :json)
       expect(response).to be_successful
     end
   end

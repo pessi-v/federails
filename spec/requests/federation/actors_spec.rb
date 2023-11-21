@@ -20,7 +20,7 @@ RSpec.describe '/federation/actors', type: :request do
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      get federails.actor_url(user.actor, format: :json)
+      get federails.server_actor_url(user.actor, format: :json)
       expect(response).to be_successful
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe '/federation/actors', type: :request do
   describe 'GET /followers' do
     it 'renders a successful response' do
       follower
-      get federails.followers_actor_url(user.actor, format: :json)
+      get federails.followers_server_actor_url(user.actor, format: :json)
       expect(response).to be_successful
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe '/federation/actors', type: :request do
   describe 'GET /following' do
     it 'renders a successful response' do
       following
-      get federails.following_actor_url(user.actor, format: :json)
+      get federails.following_server_actor_url(user.actor, format: :json)
       expect(response).to be_successful
     end
   end

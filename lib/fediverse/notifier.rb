@@ -7,7 +7,7 @@ module Fediverse
         Rails.logger.debug('Nobody to notice') && return if actors.count.zero?
 
         message = Federails::ApplicationController.renderer.new.render(
-          template: 'federails/activities/show',
+          template: 'federails/server/activities/show',
           assigns:  { activity: activity },
           format:   :json
         )
