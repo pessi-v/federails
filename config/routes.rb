@@ -1,9 +1,11 @@
 Federails::Engine.routes.draw do
-  scope path: '/' do
-    get '/.well-known/webfinger', to: 'server/web_finger#find', as: :webfinger
-    get '/.well-known/host-meta', to: 'server/web_finger#host_meta', as: :host_meta
-    get '/.well-known/nodeinfo', to: 'server/nodeinfo#index', as: :node_info
-    get '/nodeinfo/2.0', to: 'server/nodeinfo#show', as: :show_node_info
+  if Federails.configuration.enable_discovery
+    scope path: '/' do
+      get '/.well-known/webfinger', to: 'server/web_finger#find', as: :webfinger
+      get '/.well-known/host-meta', to: 'server/web_finger#host_meta', as: :host_meta
+      get '/.well-known/nodeinfo', to: 'server/nodeinfo#index', as: :node_info
+      get '/nodeinfo/2.0', to: 'server/nodeinfo#show', as: :show_node_info
+    end
   end
 
   scope Federails.configuration.client_routes_path, module: :client, as: :client do

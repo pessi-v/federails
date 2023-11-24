@@ -21,6 +21,10 @@ module Federails
     mattr_reader :site_port
     @@site_port = nil
 
+    # Whether to enable ".well-known" and "nodeinfo" endpoints
+    mattr_accessor :enable_discovery
+    @@enable_discovery = true
+
     # Site port
     mattr_accessor :app_layout
     @@app_layout = nil

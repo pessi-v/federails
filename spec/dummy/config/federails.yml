@@ -5,6 +5,7 @@ defaults: &defaults
   force_ssl: false
   site_host: http://localhost
   site_port: 3000
+  enable_discovery: true
   app_layout: 'layouts/application'
   user_class: '::User'
   server_routes_path: federation
