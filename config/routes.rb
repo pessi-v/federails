@@ -6,7 +6,7 @@ Federails::Engine.routes.draw do
     get '/nodeinfo/2.0', to: 'server/nodeinfo#show', as: :show_node_info
   end
 
-  scope :app, module: :client, as: :client do
+  scope Federails.configuration.client_routes_path, module: :client, as: :client do
     resources :activities, only: [:index, :feed]
     resources :actors, only: [:index, :show] do
       collection do
@@ -26,7 +26,7 @@ Federails::Engine.routes.draw do
     end
   end
 
-  scope Federails.configuration.routes_path, module: :server, as: :server do
+  scope Federails.configuration.server_routes_path, module: :server, as: :server do
     resources :actors, only: [:show] do
       member do
         get :followers

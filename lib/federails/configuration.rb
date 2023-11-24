@@ -25,9 +25,13 @@ module Federails
     mattr_accessor :user_class
     @@user_class = '::User'
 
-    # Route path for the federation URLS (to "Federails::Server::*" controllers)
-    mattr_accessor :routes_path
-    @@routes_path = :federation
+    # Route path for the federation URLs (to "Federails::Server::*" controllers)
+    mattr_accessor :server_routes_path
+    @@server_routes_path = :federation
+
+    # Route path for the webapp URLs (to "Federails::Client::*" controllers)
+    mattr_accessor :client_routes_path
+    @@client_routes_path = :app
 
     # Method to use for links to user profiles.
     mattr_accessor :user_profile_url_method
