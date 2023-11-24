@@ -5,7 +5,7 @@ module Federails
         COMMON_PORTS = [80, 443].freeze
 
         ##
-        # @return [String] H=ost and port of the current instance
+        # @return [String] Host and port of the current instance
         def localhost
           uri = URI.parse Federails.configuration.site_host
           host_and_port uri.host, Federails.configuration.site_port
