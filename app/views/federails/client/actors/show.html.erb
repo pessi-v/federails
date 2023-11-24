@@ -1,0 +1,100 @@
+<h2><%= @actor.name %></h2>
+
+<% if Federails::Client::FollowingPolicy.new(current_user, Federails::Following).create? %>
+  <p>
+    <%
+      follow = current_user.actor.follows? @actor
+      if @actor.user_id == current_user.id
+    %>
+      <button role="button" disabled="disabled">That's you</button>
+    <% elsif follow %>
+      Already following (<%= follow.status %>)
+      <%= button_to 'Revoke', federails.client_following_path(follow), method: :delete %>
+    <% else %>
+      <%= button_to 'Follow!', federails.follow_client_followings_path, params: { account: @actor.at_address }, method: :post %>
+    <% end %>
+  </p>
+<% end %>
+
+<p>
+  <b>Federated url:</b>
+  <%= @actor.federated_url %>
+</p>
+
+<p>
+  <b>Username:</b>
+  <%= @actor.username %>
+</p>
+
+<p>
+  <b>Inbox URL:</b>
+  <%= @actor.inbox_url %>
+</p>
+
+<p>
+  <b>Outbox URL:</b>
+  <%= @actor.outbox_url %>
+</p>
+
+<p>
+  <b>Followers URL:</b>
+  <%= @actor.followers_url %>
+</p>
+
+<p>
+  <b>Followings URL:</b>
+  <%= @actor.followings_url %>
+</p>
+
+<p>
+  <b>Profile url:</b>
+  <% if @actor.profile_url %>
+    <%= link_to 'Profile', @actor.profile_url %>
+  <% end %>
+</p>
+
+<p>
+  <b>Federation address:</b>
+  <%= @actor.at_address %>
+</p>
+
+<p>
+  <b>Home page:</b>
+  <% if @actor.local? && Federails::Configuration.user_profile_url_method %>
+    <%= link_to @actor.send(Federails::Configuration.user_username_field), send(Federails::Configuration.user_profile_url_method, @actor.user) %>
+  <% elsif @actor.profile_url %>
+    <%= link_to @actor.name, @actor.profile_url %>
+  <% else %>
+    (No homepage)
+  <% end %>
+</p>
+
+<hr>
+
+<h2>Follows</h2>
+<% if current_user && current_user.id == @actor.user_id %>
+  <%= render 'federails/client/followings/form', following: Federails::Following.new %>
+<% end %>
+
+<% @actor.following_follows.each do |following| %>
+  <%= render 'federails/client/followings/follow', following: following %>
+<% end %>
+
+<h2>Followers</h2>
+<% @actor.following_followers.each do |following| %>
+  <%= render 'federails/client/followings/follower', following: following %>
+<% end %>
+
+<%= link_to 'Back', federails.client_actors_url %>
+
+<!-- FIXME: Fetch distant content somehow -->
+<h2>10 last activities</h2>
+<% if @actor.local? %>
+  <%= link_to 'All', federails.client_actor_activities_path(@actor) %>
+<% elsif @actor.profile_url %>
+  <%= link_to 'Visit profile', @actor.profile_url %>
+<% end %>
+
+<% @actor.activities.last(10).each do |activity| %>
+  <%= render 'federails/client/activities/activity', activity: activity %>
+<% end %>

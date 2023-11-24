@@ -1,0 +1,24 @@
+<h1>Listing actors</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Username</th>
+    <th>Federation address</th>
+    <th>Local?</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @actors.each do |actor| %>
+    <tr>
+      <td><%= actor.name %></td>
+      <td><%= actor.username %></td>
+      <td><%= actor.at_address %></td>
+      <td><%= actor.local? %></td>
+      <td><%= link_to 'Show', federails.client_actor_url(actor) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

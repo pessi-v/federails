@@ -1,0 +1,4 @@
+<h1>Your feed !</h1>
+<% @activities.each do |activity| %>
+  <%= render 'activity', activity: activity %>
+<% end %>
