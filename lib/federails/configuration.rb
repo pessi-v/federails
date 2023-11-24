@@ -21,6 +21,10 @@ module Federails
     mattr_reader :site_port
     @@site_port = nil
 
+    # Site port
+    mattr_accessor :app_layout
+    @@app_layout = nil
+
     # User model
     mattr_accessor :user_class
     @@user_class = '::User'

@@ -18,15 +18,15 @@
 
     <nav>
       <% if !current_user %>
-        <%= link_to 'Login', :new_user_session %>
-        <%= link_to 'Register', :new_user_registration %>
+        <%= link_to 'Login', main_app.new_user_session_url %>
+        <%= link_to 'Register', main_app.new_user_registration_url %>
       <% else %>
         <%= link_to 'Feed', federails.client_feed_url %>
         |
         <%= link_to 'You', federails.client_actor_path(current_user.actor) %>
         ||
         <%= current_user.email %>
-        <%= button_to 'Logout', :destroy_user_session, method: :delete, form: { style: 'display: inline-block;' } %>
+        <%= button_to 'Logout', main_app.destroy_user_session_url, method: :delete, form: { style: 'display: inline-block;' } %>
       <% end %>
     </nav>
 

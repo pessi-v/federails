@@ -22,6 +22,7 @@ module Federails
       :force_ssl,
       :site_host,
       :site_port,
+      :app_layout,
       :user_class,
       :server_routes_path,
       :client_routes_path,

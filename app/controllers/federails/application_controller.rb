@@ -4,6 +4,8 @@ module Federails
 
     rescue_from ActiveRecord::RecordNotFound, with: :error_not_found
 
+    layout Federails.configuration.app_layout if Federails.configuration.app_layout
+
     private
 
     def error_fallback(exception, fallback_message, status)
