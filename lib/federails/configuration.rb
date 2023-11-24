@@ -1,33 +1,45 @@
 module Federails
   # rubocop:disable Style/ClassVars
   module Configuration
+    # Application name, used in well-known and nodeinfo endpoints
     mattr_accessor :app_name
     @@app_name = nil
 
+    # Application version, used in well-known and nodeinfo endpoints
     mattr_accessor :app_version
     @@app_version = nil
 
+    # Force https urls in various rendered content (currently in webfinger views)
     mattr_accessor :force_ssl
     @@force_ssl = nil
 
+    # Site hostname
     mattr_reader :site_host
     @@site_host = nil
 
+    # Site port
     mattr_reader :site_port
     @@site_port = nil
 
+    # User model
     mattr_accessor :user_class
     @@user_class = '::User'
 
+    # Route path for the federation URLS (to "Federails::Server::*" controllers)
     mattr_accessor :routes_path
     @@routes_path = :federation
 
+    # Method to use for links to user profiles.
     mattr_accessor :user_profile_url_method
-    @@user_profile_url_method = :user_url
+    @@user_profile_url_method = nil
 
+    # Attribute in the user model to use as the user's name
+    #
+    # It only have sense if you have a separate username attribute
     mattr_accessor :user_name_field
     @@user_name_field = nil
 
+    # Attribute in the user model to use as the username for local actors
     mattr_accessor :user_username_field
     @@user_username_field = :id
 
