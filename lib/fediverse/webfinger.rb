@@ -62,8 +62,11 @@ module Fediverse
           raise ActiveRecord::RecordNotFound
         end
 
-        # FIXME: handle JSON parsing errors
         JSON.parse(response.body)
+      rescue JSON::ParserError
+        Rails.logger.debug { "Invalid JSON response GET #{url}" }
+
+        raise ActiveRecord::RecordNotFound
       end
 
       # Only perform a GET request and throws an ActiveRecord::RecordNotFound
