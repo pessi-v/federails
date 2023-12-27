@@ -56,7 +56,7 @@ module Federails
       end
 
       def validate_payload(hash)
-        return unless hash['@context'] && hash['id'] && hash['type'] && hash['actor'] && hash['object'] && hash['to']
+        return unless hash['@context'] && hash['id'] && hash['type'] && hash['actor'] && hash['object']
 
         hash
       end
