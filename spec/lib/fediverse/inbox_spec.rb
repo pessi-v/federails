@@ -68,7 +68,7 @@ module Fediverse
     describe '#handle_undo_request' do
       let(:payload) do
         {
-          'actor' => distant_actor.federated_url,
+          'object' => following,
         }
       end
       let(:following) do
