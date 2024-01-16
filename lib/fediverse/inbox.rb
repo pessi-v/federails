@@ -57,7 +57,7 @@ module Fediverse
       end
 
       def handle_undo_request(payload)
-        activity = Request.get(payload['object'])
+        activity = payload['object']
         raise "Can't undo things that are not Follow" unless activity['type'] == 'Follow'
 
         actor        = Federails::Actor.find_or_create_by_object activity['actor']
