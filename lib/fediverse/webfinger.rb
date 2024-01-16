@@ -1,5 +1,5 @@
 require 'faraday'
-require 'faraday_middleware'
+require 'faraday/follow_redirects'
 
 require 'federails/utils/host'
 
@@ -75,7 +75,7 @@ module Fediverse
       # not found...
       def get(url, payload: {}, headers: {})
         connection = Faraday.new url: url, params: payload, headers: headers do |faraday|
-          faraday.use FaradayMiddleware::FollowRedirects
+          faraday.response :follow_redirects # use Faraday::FollowRedirects::Middleware
           faraday.adapter Faraday.default_adapter
         end
 

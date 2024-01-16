@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency 'faraday'
-  spec.add_dependency 'faraday_middleware'
+  spec.add_dependency 'faraday-follow_redirects'
   spec.add_dependency 'json-ld', '>= 3.2.0'
   spec.add_dependency 'json-ld-preloaded', '>= 3.2.0'
   spec.add_dependency 'kaminari', '>= 1.2.0'
