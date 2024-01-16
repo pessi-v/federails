@@ -7,6 +7,8 @@ module Fediverse
         case payload['type']
         when 'Create'
           handle_create_request payload
+        when 'Follow'
+          handle_create_follow_request payload
         when 'Accept'
           handle_accept_request payload
         when 'Undo'
