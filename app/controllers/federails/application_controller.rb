@@ -1,6 +1,6 @@
 module Federails
   class ApplicationController < ActionController::Base
-    include Pundit::Authorization
+    include ::Pundit::Authorization
 
     rescue_from ActiveRecord::RecordNotFound, with: :error_not_found
 
